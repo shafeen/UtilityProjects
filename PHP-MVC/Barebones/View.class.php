@@ -24,5 +24,8 @@ class View
     public function displayOutput()
     {
         echo $this->output();
+
+        $buttonList = array('button1', 'button2', 'button3', 'button4');
+        include_once('content/button-list.html.php');
     }
 }

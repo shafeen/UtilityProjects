@@ -16,7 +16,7 @@ class Controller
     public function __construct($model)
     {
         $this->model = $model;
-        $this->actionRegistryMap = array('clicked'=>'');
+        $this->actionRegistryMap = array('clicked'=>'', 'change'=>'');
         $this->control();
     }
 
@@ -37,10 +37,16 @@ class Controller
     }
 
 
-    public function clicked()
+    private function clicked()
     {
         $this->model->string = "Updated Data, thanks to MVC and PHP!";
     }
+
+    private function change()
+    {
+        $this->model->string = "The string has now been changed";
+    }
+
 
 
 }
