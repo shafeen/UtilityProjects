@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body id="myBody">
+
+<button onclick="addNewDiv()">Add New Div</button>
+
+<script id="scriptTag">
+
+    var divsCreated = 0;
+
+    var mainBody = document.getElementById("myBody");
+
+    var elementToInsertBefore = document.getElementById("scriptTag");
+
+    function createNewTemplateDiv(idPostfix) {
+        var div = document.createElement("div");
+        div.id = "newDiv" + idPostfix;
+
+        var divHeading = document.createElement("h4");
+        divHeading.id = "divHeading" + idPostfix;
+        var divPara1 = document.createElement("p");
+        divPara1.id = "divPara1_" + idPostfix;
+        var divPara2 = document.createElement("p");
+        divPara2.id = "divPara2_" + idPostfix;
+
+        divHeading.appendChild(document.createTextNode("Heading " + idPostfix));
+        divPara1.appendChild(document.createTextNode("Info 1"));
+        divPara2.appendChild(document.createTextNode("Info 2"));
+
+        div.appendChild(divHeading);
+        div.appendChild(divPara1);
+        div.appendChild(divPara2);
+
+        // add the following styles below as CSS
+        div.style.border = "thin solid #00bbbb";
+        div.style.padding = "5px";
+        div.style.margin = "5px";
+        return div;
+    }
+
+
+
+    function addNewDiv() {
+        divsCreated++;
+        var div = createNewTemplateDiv(divsCreated);
+
+        mainBody.insertBefore(div, elementToInsertBefore);
+
+//        if(elementToInsertBefore.id != "scriptTag") {
+//            mainBody.removeChild(elementToInsertBefore);
+//        }
+
+        elementToInsertBefore = div;
+    }
+
+</script>
+
+</body>
+</html>
