@@ -47,15 +47,30 @@
     function addNewDiv() {
         divsCreated++;
         var div = createNewTemplateDiv(divsCreated);
-
         mainBody.insertBefore(div, elementToInsertBefore);
-
-//        if(elementToInsertBefore.id != "scriptTag") {
-//            mainBody.removeChild(elementToInsertBefore);
-//        }
-
         elementToInsertBefore = div;
     }
+
+</script>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script id="socketioScripts">
+    var socket = io();
+
+    socket.on('m1', function(msg) {
+        var elt = document.getElementById("divPara1_1");
+        if(elt) {
+            elt.innerHTML = msg;
+        }
+    });
+
+    socket.on('m2', function(msg) {
+        var elt = document.getElementById("divPara1_2");
+        if(elt) {
+            elt.innerHTML = msg;
+        }
+    });
 
 </script>
 
