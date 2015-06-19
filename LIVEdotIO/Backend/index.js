@@ -23,20 +23,9 @@ io.on('connection', function(socket) {
     // we want the Frontend to be able to do 3 things:
     // - add or update new or existing LIVEdotIO view - 'a'
     // - remove an active LIVEdotIO view - 'r'
-
-    var addUpdateView = true;
-    var removeView = false;
-    var livePublishEvent = "a" + "_" + "eventName";
-
-    //setInterval(function() {
-    //    var eventInfoObj = new Object();
-    //    eventInfoObj.eventName = "eventName";
-    //    eventInfoObj.addOrRemove = "a";
-    //    eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
     //
-    //    io.emit(livePublishEvent, eventInfoObj);
-    //
-    //}, 1000);
+    // we want to be able to decide the update intervals of the functions
+
 
 
     setInterval(function() {
@@ -49,9 +38,9 @@ io.on('connection', function(socket) {
             new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
     }, 1000);
 
-
+    // TODO: send add/updates through one event and removals on another event
     setInterval(function() {
-        var eventInfoObj = new Object();
+        var eventInfoObj = {};
         eventInfoObj.eventName = "3";
         eventInfoObj.addOrRemove = "a";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
@@ -60,7 +49,7 @@ io.on('connection', function(socket) {
     }, 1000);
 
     setInterval(function() {
-        var eventInfoObj = new Object();
+        var eventInfoObj = {};
         eventInfoObj.eventName = "4";
         eventInfoObj.addOrRemove = "r";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
