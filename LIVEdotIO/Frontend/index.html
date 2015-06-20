@@ -58,43 +58,45 @@
 <script id="socketioScripts">
     var socket = io();
 
-    socket.on('m3', function(infoObj) {
-        if(infoObj.addOrRemove == "a") {
-            // check if the view already exists
-            var viewToAdd = document.getElementById("newDiv"+infoObj.eventName);
-            if(viewToAdd == null) { // if it does not exist -> create it first
-                var div = createNewTemplateDiv(infoObj.eventName);
-                mainBody.insertBefore(div, elementToInsertBefore);
-                elementToInsertBefore = div;
-            }
-            // update the LIVEdotIO view with the message in the object
-            var elt = document.getElementById("divPara1_"+infoObj.eventName);
-            if(elt) {
-                elt.innerHTML = infoObj.message;
-            }
-        }
-        else { // it is a LIVEdotIO view removal
-            // check if the view already exists
-            var viewToRemove = document.getElementById("newDiv" + infoObj.eventName);
-            if (viewToRemove != null) {
-                mainBody.removeChild(viewToRemove)
-            }
+
+    //socket.on('m2', function(msg) {
+    //    var elt = document.getElementById("divPara1_2");
+    //    if(elt) {
+    //        elt.innerHTML = msg;
+    //    }
+    //});
+    //socket.on('m1', function(msg) {
+    //    var elt = document.getElementById("divPara1_1");
+    //    if(elt) {
+    //        elt.innerHTML = msg;
+    //    }
+    //});
+
+    // removal code
+    socket.on('r', function(infoObj) {
+        // check if the view already exists (view IDs will be named after the event)
+        var viewToRemove = document.getElementById(infoObj.eventName);
+        if (viewToRemove != null) {
+            mainBody.removeChild(viewToRemove)
         }
     });
 
-    socket.on('m2', function(msg) {
-        var elt = document.getElementById("divPara1_2");
+    // addition/update code
+    socket.on('a', function(infoObj) {
+        // check if the view already exists (view IDs will be named after the event)
+        var viewToAdd = document.getElementById(infoObj.eventName);
+        if(viewToAdd == null) { // if it does not exist -> create it first
+            var div = createNewTemplateDiv(infoObj.eventName);
+            mainBody.insertBefore(div, elementToInsertBefore);
+            elementToInsertBefore = div;
+        }
+        // update the LIVEdotIO view with the message in the object
+        var elt = document.getElementById("divPara1_"+infoObj.eventName);
         if(elt) {
-            elt.innerHTML = msg;
+            elt.innerHTML = infoObj.message;
         }
     });
 
-    socket.on('m1', function(msg) {
-        var elt = document.getElementById("divPara1_1");
-        if(elt) {
-            elt.innerHTML = msg;
-        }
-    });
 
 </script>
 

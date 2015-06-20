@@ -28,33 +28,31 @@ io.on('connection', function(socket) {
 
 
 
-    setInterval(function() {
-        io.emit('m1',
-            new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
-    }, 1000);
-
-    setInterval(function() {
-        io.emit('m2',
-            new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
-    }, 1000);
+    //setInterval(function() {
+    //    io.emit('m1',
+    //        new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
+    //}, 1000);
+    //
+    //setInterval(function() {
+    //    io.emit('m2',
+    //        new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''));
+    //}, 1000);
 
     // TODO: send add/updates through one event and removals on another event
     setInterval(function() {
         var eventInfoObj = {};
         eventInfoObj.eventName = "3";
-        eventInfoObj.addOrRemove = "a";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-
-        io.emit('m3', eventInfoObj);
+        // additon/update event
+        io.emit('a', eventInfoObj);
     }, 1000);
 
     setInterval(function() {
         var eventInfoObj = {};
         eventInfoObj.eventName = "4";
-        eventInfoObj.addOrRemove = "r";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-
-        io.emit('m3', eventInfoObj);
+        // removal event
+        io.emit('r', eventInfoObj);
     }, 10000);
 
 
