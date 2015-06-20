@@ -43,7 +43,7 @@ io.on('connection', function(socket) {
         var eventInfoObj = {};
         eventInfoObj.eventName = "3";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-        // additon/update event
+        // addition/update event
         io.emit('a', eventInfoObj);
     }, 1000);
 
