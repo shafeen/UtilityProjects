@@ -58,20 +58,6 @@
 <script id="socketioScripts">
     var socket = io();
 
-
-    //socket.on('m2', function(msg) {
-    //    var elt = document.getElementById("divPara1_2");
-    //    if(elt) {
-    //        elt.innerHTML = msg;
-    //    }
-    //});
-    //socket.on('m1', function(msg) {
-    //    var elt = document.getElementById("divPara1_1");
-    //    if(elt) {
-    //        elt.innerHTML = msg;
-    //    }
-    //});
-
     // removal code
     socket.on('r', function(infoObj) {
         // check if the view already exists (view IDs will be named after the event)
