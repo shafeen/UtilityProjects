@@ -16,13 +16,14 @@
     var mainBody = document.getElementById("myBody");
     var elementToInsertBefore = document.getElementById("scriptTag");
 
+    // LIVEdotIO view
     function createNewTemplateDiv(idPostfix) {
         var div = document.createElement("div");
         var idPrefix = "";
         div.id = idPrefix + idPostfix;
 
         var divHeading = document.createElement("h4");
-        divHeading.id = "divHeading" + idPostfix;
+        divHeading.id = "divHead_" + idPostfix;
         var divPara1 = document.createElement("p");
         divPara1.id = "divPara1_" + idPostfix;
         var divPara2 = document.createElement("p");
@@ -77,14 +78,18 @@
             elementToInsertBefore = div;
         }
         // update the LIVEdotIO view with the message in the object
-        var elt = document.getElementById("divPara1_"+infoObj.eventName);
-        if(elt) {
-            elt.innerHTML = infoObj.message;
+        // Note: view MUST match model received to ensure that the inner IDs match
+        for(var ldiModelAttr in infoObj.ldiModel) {
+            if(infoObj.ldiModel.hasOwnProperty(ldiModelAttr)) {
+                document.getElementById(ldiModelAttr).innerHTML = infoObj.ldiModel[ldiModelAttr];
+            }
         }
+
     });
 
 
 </script>
+
 
 </main>
 </body>

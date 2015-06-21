@@ -1,7 +1,18 @@
 /**
- * Created by SHAFEEEENZZ on 6/16/15.
+ * Created by Shafeen M on 6/16/15.
  */
 
+
+// LIVEdotIO model
+function createLDIModel(eventName, headingVal, para1Val, para2Val) {
+    var ldiModel = {};
+    ldiModel["divHead_"+eventName] = headingVal;
+    ldiModel["divPara1_"+eventName] = para1Val;
+    ldiModel["divPara2_"+eventName] = para2Val;
+    return ldiModel;
+}
+
+// main code for index.js starts here
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -24,21 +35,27 @@ io.on('connection', function(socket) {
     // - add or update new or existing LIVEdotIO view - 'a'
     // - remove an active LIVEdotIO view - 'r'
     //
-    // we want to be able to decide the update intervals of the functions
+    // we should be able to decide the update intervals of the functions
 
-    // TODO: send add/updates through one event and removals on another event
+    // view addition/updates
     setInterval(function() {
         var eventInfoObj = {};
         eventInfoObj.eventName = "mydiv3";
+        // the model will contain the relevant data (or messages) to show in the frontend views
+        // NOTE: model's eventName postfix MUST match the eventName sent in the msg object
+        eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName,
+            "Head",
+            new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+            (new Date()).toDateString() );
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
         // addition/update event
         io.emit('a', eventInfoObj);
     }, 3000);
 
+    // view removals, they do not require a message
     setInterval(function() {
         var eventInfoObj = {};
         eventInfoObj.eventName = "mydiv3";
-        eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
         // removal event
         io.emit('r', eventInfoObj);
     }, 7000);
@@ -47,8 +64,15 @@ io.on('connection', function(socket) {
 
 
 
-
-
 http.listen(3000, function() {
     console.log('listening on port 3000');
 });
+
+
+
+
+
+
+
+
+
