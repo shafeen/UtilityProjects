@@ -4,21 +4,22 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body id="myBody">
+<body >
 
 <button onclick="addNewDiv()">Add New Div</button>
+
+<main id="myBody">
 
 <script id="scriptTag">
 
     var divsCreated = 0;
-
     var mainBody = document.getElementById("myBody");
-
     var elementToInsertBefore = document.getElementById("scriptTag");
 
     function createNewTemplateDiv(idPostfix) {
         var div = document.createElement("div");
-        div.id = "newDiv" + idPostfix;
+        var idPrefix = "";
+        div.id = idPrefix + idPostfix;
 
         var divHeading = document.createElement("h4");
         divHeading.id = "divHeading" + idPostfix;
@@ -43,7 +44,6 @@
     }
 
 
-
     function addNewDiv() {
         divsCreated++;
         var div = createNewTemplateDiv(divsCreated);
@@ -55,14 +55,14 @@
 
 
 <script src="/socket.io/socket.io.js"></script>
-<script id="socketioScripts">
+<script id="socketioRecvScripts">
     var socket = io();
 
     // removal code
     socket.on('r', function(infoObj) {
         // check if the view already exists (view IDs will be named after the event)
         var viewToRemove = document.getElementById(infoObj.eventName);
-        if (viewToRemove != null) {
+        if(viewToRemove != null) {
             mainBody.removeChild(viewToRemove)
         }
     });
@@ -73,7 +73,7 @@
         var viewToAdd = document.getElementById(infoObj.eventName);
         if(viewToAdd == null) { // if it does not exist -> create it first
             var div = createNewTemplateDiv(infoObj.eventName);
-            mainBody.insertBefore(div, elementToInsertBefore);
+            mainBody.insertBefore(div, mainBody.firstElementChild);
             elementToInsertBefore = div;
         }
         // update the LIVEdotIO view with the message in the object
@@ -86,5 +86,6 @@
 
 </script>
 
+</main>
 </body>
 </html>

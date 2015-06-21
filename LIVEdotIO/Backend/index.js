@@ -29,19 +29,19 @@ io.on('connection', function(socket) {
     // TODO: send add/updates through one event and removals on another event
     setInterval(function() {
         var eventInfoObj = {};
-        eventInfoObj.eventName = "3";
+        eventInfoObj.eventName = "mydiv3";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
         // addition/update event
         io.emit('a', eventInfoObj);
-    }, 1000);
+    }, 3000);
 
     setInterval(function() {
         var eventInfoObj = {};
-        eventInfoObj.eventName = "4";
+        eventInfoObj.eventName = "mydiv3";
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
         // removal event
         io.emit('r', eventInfoObj);
-    }, 10000);
+    }, 7000);
 
 });
 
