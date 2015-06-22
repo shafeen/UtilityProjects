@@ -45,7 +45,7 @@ The part of the data the frontend receives to display on the view will be encaps
 in a model sent from the backend.
 
 There is a very basic default template view in place as our LIVEdotIO view in the frontend
-which consists of a single **div** containing an **<h4>** and 2 **<p>** elements.
+which consists of a single **div** containing an **h4** and 2 **p** elements.
 We also have a very simple LIVEdotIO model in place in the backend corresponding to
 our simple view.
 
