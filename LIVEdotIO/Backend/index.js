@@ -30,7 +30,6 @@ io.on('connection', function(socket) {
     });
 
 
-
     // we want the Frontend to be able to do 3 things:
     // - add or update new or existing LIVEdotIO view - 'a'
     // - remove an active LIVEdotIO view - 'r'
@@ -40,7 +39,7 @@ io.on('connection', function(socket) {
     // view addition/updates
     setInterval(function() {
         var eventInfoObj = {};
-        eventInfoObj.eventName = "mydiv3";
+        eventInfoObj.eventName = "publishEvent";
         // the model will contain the relevant data (or messages) to show in the frontend views
         // NOTE: model's eventName postfix MUST match the eventName sent in the msg object
         eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName,
