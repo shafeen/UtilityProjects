@@ -37,6 +37,7 @@ io.on('connection', function(socket) {
     // we should be able to decide the update intervals of the functions
 
     // view addition/updates
+    var updateEventInterval = 3000;
     setInterval(function() {
         var eventInfoObj = {};
         eventInfoObj.eventName = "publishEvent";
@@ -51,8 +52,10 @@ io.on('connection', function(socket) {
         io.emit('a', eventInfoObj);
     }, 3000);
 
-    // view removals, they do not require a message
+    // view removals, they don't require a message (and may not be required)
+    var removalEventInterval = 3000;
     setInterval(function() {
+
         var eventInfoObj = {};
         eventInfoObj.eventName = "mydiv3";
         // removal event

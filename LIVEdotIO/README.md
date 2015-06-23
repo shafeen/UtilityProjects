@@ -49,7 +49,7 @@ which consists of a single **div** containing an **h4** and 2 **p** elements.
 We also have a very simple LIVEdotIO model in place in the backend corresponding to
 our simple view.
 
-Project based on version 0.1 source code: **RedisLive** (coming soon)
+Project based on version 0.1 source code: **LIVEdotREDIS** (coming soon)
 
 More descriptions (and code snippets) coming soon....
 
