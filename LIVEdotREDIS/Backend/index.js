@@ -12,14 +12,18 @@ function createLDIModel(eventName, headingVal, para1Val, para2Val) {
     return ldiModel;
 }
 
+var express = require('express');
 // main code for index.js starts here
-var app = require('express')();
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 
 app.get('/', function (req, res) {
     res.sendFile('/Frontend/index.html', { root: '../' });
+});
+app.get('/ldr-front.js', function (req, res) {
+    res.sendFile('/Frontend/ldr-front.js', { root: '../' });
 });
 
 io.on('connection', function(socket) {
