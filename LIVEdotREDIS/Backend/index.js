@@ -22,15 +22,21 @@ var io = require('socket.io')(http);
 app.get('/', function (req, res) {
     res.sendFile('/Frontend/index.html', { root: '../' });
 });
+app.get('/ldi-front-util.js', function (req, res) {
+    res.sendFile('/Frontend/ldi-front-util.js', { root: '../' });
+});
+app.get('/ldi-front-socketio.js', function (req, res) {
+    res.sendFile('/Frontend/ldi-front-socketio.js', { root: '../' });
+});
 app.get('/ldr-front.js', function (req, res) {
     res.sendFile('/Frontend/ldr-front.js', { root: '../' });
 });
 
 io.on('connection', function(socket) {
-    console.log('a user connected');
+    console.log('a client connected');
 
     socket.on('disconnect', function() {
-        console.log('a user disconnected');
+        console.log('a client disconnected');
     });
 
     // LIVEdotREDIS key tracking code
@@ -75,7 +81,6 @@ io.on('connection', function(socket) {
         redisKeys.forEach(function(key) {
             client.get(key, function (err, reply) {
                 var eventInfoObj = {};
-                // NOTE: model's eventName MUST match the eventName used to send the ldiModel object
                 eventInfoObj.eventName = key;
                 if(reply) {
                     //console.log(key + " => "+ reply.toString());

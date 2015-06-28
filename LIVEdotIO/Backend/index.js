@@ -30,10 +30,10 @@ app.get('/ldi-front-socketio.js', function (req, res) {
 });
 
 io.on('connection', function(socket) {
-    console.log('a user connected');
+    console.log('a client connected');
 
     socket.on('disconnect', function() {
-        console.log('a user disconnected');
+        console.log('a client disconnected');
     });
 
 
