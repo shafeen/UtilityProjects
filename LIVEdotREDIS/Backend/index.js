@@ -66,6 +66,31 @@ io.on('connection', function(socket) {
         io.emit('r', eventInfoObj);
     }, REMOVAL_EVENT_INTERVAL);
 
+
+
+
+    // LIVEdotREDIS key tracking code
+    var redisKeys = [];
+
+    socket.on('trackKey', function(trackKey) {
+        redisKeys.push(trackKey);
+        console.log("Tracking redis keys: ");
+        redisKeys.forEach(function(key) {
+            console.log("\t" + key);
+        });
+    });
+    socket.on('removeKey', function(removeKey) {
+        var index = redisKeys.indexOf(removeKey);
+        if(index >= 0) {
+            console.log("Stop tracking key: " + removeKey);
+            redisKeys.splice(index, 1);
+        }
+        console.log("Tracking redis keys: ");
+        redisKeys.forEach(function(key) {
+            console.log("\t" + key);
+        });
+    });
+
 });
 
 
