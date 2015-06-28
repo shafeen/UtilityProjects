@@ -52,7 +52,7 @@ io.on('connection', function(socket) {
 
             var eventInfoObj = {};
             eventInfoObj.eventName = removeKey;
-            io.emit('r', eventInfoObj);
+            socket.emit('r', eventInfoObj);
         }
         console.log("Tracking redis keys: ");
         redisKeys.forEach(function(key) {
@@ -81,9 +81,9 @@ io.on('connection', function(socket) {
                     //console.log(key + " => "+ reply.toString());
                     eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName, key, reply, "" );
                     // addition/update event
-                    io.emit('a', eventInfoObj);
+                    socket.emit('a', eventInfoObj);
                 } else { // key must no longer exist so remove frontend view
-                    io.emit('r', eventInfoObj);
+                    socket.emit('r', eventInfoObj);
                 }
             });
         });

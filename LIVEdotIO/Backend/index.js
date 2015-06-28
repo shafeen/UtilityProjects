@@ -56,7 +56,7 @@ io.on('connection', function(socket) {
             (new Date()).toDateString() );
         eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
         // addition/update event
-        io.emit('a', eventInfoObj);
+        socket.emit('a', eventInfoObj);
     }, UPDATE_EVENT_INTERVAL);
 
     // view removals, they don't require a message (and may not be required)
@@ -66,7 +66,7 @@ io.on('connection', function(socket) {
         var eventInfoObj = {};
         eventInfoObj.eventName = "mydiv3";
         // removal event
-        io.emit('r', eventInfoObj);
+        socket.emit('r', eventInfoObj);
     }, REMOVAL_EVENT_INTERVAL);
 
 });
