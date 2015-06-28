@@ -40,7 +40,7 @@ function removeKey() {
 
     var redisKeyLabel = document.getElementById(getIdFromValue(redisKey));
     if(redisKeyLabel) {
-        redisKeyLabels.removeChild(redisKeyLabel)
+        redisKeyLabels.removeChild(redisKeyLabel);
 
         // Send the key to the backend to stop tracking it
         var socket = io();
