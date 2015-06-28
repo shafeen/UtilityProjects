@@ -33,42 +33,6 @@ io.on('connection', function(socket) {
         console.log('a user disconnected');
     });
 
-
-    // we want the Frontend to be able to do 3 things:
-    // - add or update new or existing LIVEdotIO view - 'a'
-    // - remove an active LIVEdotIO view - 'r'
-    //
-    // we should be able to decide the update intervals of the functions
-
-    // view addition/updates
-    var UPDATE_EVENT_INTERVAL = 3000;
-    setInterval(function() {
-        var eventInfoObj = {};
-        eventInfoObj.eventName = "publishEvent";
-        // the model will contain the relevant data (or messages) to show in the frontend views
-        // NOTE: model's eventName postfix MUST match the eventName sent in the msg object
-        eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName,
-            "Head",
-            new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
-            (new Date()).toDateString() );
-        eventInfoObj.message = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-        // addition/update event
-        io.emit('a', eventInfoObj);
-    }, UPDATE_EVENT_INTERVAL);
-
-    // view removals, they don't require a message (and may not be required)
-    var REMOVAL_EVENT_INTERVAL = 7000;
-    setInterval(function() {
-
-        var eventInfoObj = {};
-        eventInfoObj.eventName = "mydiv3";
-        // removal event
-        io.emit('r', eventInfoObj);
-    }, REMOVAL_EVENT_INTERVAL);
-
-
-
-
     // LIVEdotREDIS key tracking code
     var redisKeys = [];
 
@@ -79,17 +43,52 @@ io.on('connection', function(socket) {
             console.log("\t" + key);
         });
     });
+
     socket.on('removeKey', function(removeKey) {
         var index = redisKeys.indexOf(removeKey);
         if(index >= 0) {
             console.log("Stop tracking key: " + removeKey);
             redisKeys.splice(index, 1);
+
+            var eventInfoObj = {};
+            eventInfoObj.eventName = removeKey;
+            io.emit('r', eventInfoObj);
         }
         console.log("Tracking redis keys: ");
         redisKeys.forEach(function(key) {
             console.log("\t" + key);
         });
     });
+
+
+    // provide an update for each of the keys we're tracking
+    // this goes without saying but you should have a REDIS server running
+    var REDIS_POLL_INTERVAL= 1000;
+    setInterval(function() {
+        // init redis client
+        var redis = require("redis");
+        var client = redis.createClient();
+        client.on("error", function (err) {
+            console.log("Error " + err);
+        });
+
+        redisKeys.forEach(function(key) {
+            client.get(key, function (err, reply) {
+                var eventInfoObj = {};
+                // NOTE: model's eventName MUST match the eventName used to send the ldiModel object
+                eventInfoObj.eventName = key;
+                if(reply) {
+                    //console.log(key + " => "+ reply.toString());
+                    eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName, key, reply, "" );
+                    // addition/update event
+                    io.emit('a', eventInfoObj);
+                } else { // key must no longer exist so remove frontend view
+                    io.emit('r', eventInfoObj);
+                }
+            });
+        });
+        client.quit();
+    }, REDIS_POLL_INTERVAL);
 
 });
 
