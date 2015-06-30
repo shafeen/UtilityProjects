@@ -31,6 +31,9 @@ app.get('/ldi-front-socketio.js', function (req, res) {
 app.get('/ldr-front.js', function (req, res) {
     res.sendFile('/Frontend/ldr-front.js', { root: '../' });
 });
+app.get('/ldr-front.css', function (req, res) {
+    res.sendFile('/Frontend/ldr-front.css', { root: '../' });
+});
 
 io.on('connection', function(socket) {
     console.log('a client connected');
