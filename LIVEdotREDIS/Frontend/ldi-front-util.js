@@ -20,13 +20,13 @@ function createLDIView(idPostfix) {
     divPara2.appendChild(document.createTextNode("Info 2"));
 
     ldiView.appendChild(divHeading);
+    ldiView.appendChild(document.createElement("hr"));
     ldiView.appendChild(divPara1);
     ldiView.appendChild(divPara2);
 
-    // add the following styles below as CSS
-    ldiView.style.border = "thin solid #00bbbb";
-    ldiView.style.padding = "5px";
-    ldiView.style.margin = "5px";
+    ldiView.className = "ldiView";
+    divHeading.className = "ldiViewHead";
+    divPara1.className = "ldiViewPara";
     return ldiView;
 }
 
