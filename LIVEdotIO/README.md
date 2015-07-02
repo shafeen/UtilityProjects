@@ -20,8 +20,7 @@ Make sure you have **node.js** and its corresponding package manager **npm** ins
 
 In the **Backend/** directory, run this on the terminal:
 ``` shell
-npm install express
-npm install socket.io
+npm install express socket.io
 ```
 
 Apache reverse-proxy settings (may not be perfect):
