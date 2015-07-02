@@ -44,11 +44,20 @@ io.on('connection', function(socket) {
 
     // LIVEdotREDIS key tracking code
     var redisKeys = [];
+    var redisHKeys = [];
 
     socket.on('trackKey', function(trackKey) {
         redisKeys.push(trackKey);
         console.log("Tracking redis keys: ");
         redisKeys.forEach(function(key) {
+            console.log("\t" + key);
+        });
+    });
+
+    socket.on('trackHKey', function(trackHKey) {
+        redisHKeys.push(trackHKey);
+        console.log("Tracking redis hkeys: ");
+        redisHKeys.forEach(function(key) {
             console.log("\t" + key);
         });
     });
@@ -88,6 +97,22 @@ io.on('connection', function(socket) {
                 if(reply) {
                     //console.log(key + " => "+ reply.toString());
                     eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName, key, reply, "" );
+
+                    socket.emit('a', eventInfoObj);
+                } else { // key must no longer exist so remove frontend view
+                    socket.emit('r', eventInfoObj);
+                }
+            });
+        });
+
+        // now
+        redisHKeys.forEach(function(key) {
+            client.hgetall(key, function (err, hgetObj) {
+                var eventInfoObj = {};
+                eventInfoObj.eventName = key;
+                if(hgetObj) {
+                    //console.log(key + " => "+ hgetObj.stringify());
+                    eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName, key, JSON.stringify(hgetObj), "" );
                     // addition/update event
                     socket.emit('a', eventInfoObj);
                 } else { // key must no longer exist so remove frontend view
@@ -95,6 +120,7 @@ io.on('connection', function(socket) {
                 }
             });
         });
+
         client.quit();
     }, REDIS_POLL_INTERVAL);
 

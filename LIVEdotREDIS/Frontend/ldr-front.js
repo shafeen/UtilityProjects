@@ -5,6 +5,37 @@ function getIdFromValue(value) {
     return "key_" + value;
 }
 
+// TODO: break out the utility functions to their own files
+function addRedisKeyLabel(redisKey) {
+    // Add a label to indicate that we are tracking this key
+    var redisKeyLabel = document.createElement("label");
+    redisKeyLabel.id = getIdFromValue(redisKey);
+    redisKeyLabel.appendChild(document.createTextNode(redisKey));
+
+    var redisKeyGap = document.createElement("label");
+    redisKeyGap.appendChild(document.createTextNode(" "));
+
+    redisKeyLabels.appendChild(redisKeyLabel);
+    redisKeyLabels.appendChild(redisKeyGap);
+}
+
+function removeRedisKeyLabel(redisKey) {
+    var redisKeyLabel = document.getElementById(getIdFromValue(redisKey));
+    if(redisKeyLabel) {
+        redisKeyLabels.removeChild(redisKeyLabel);
+    }
+    return (redisKeyLabel != null);
+}
+
+
+function getKeyTypeSelected() {
+    var keyTypeSelected = "KEY";
+    var keyTypeSelector = document.getElementById("keyTypeSelector");
+    if(keyTypeSelector) {
+        keyTypeSelected = keyTypeSelector.options[keyTypeSelector.selectedIndex].text;
+    }
+    return keyTypeSelected;
+}
 
 function trackKey() {
     if(!redisKeyInput.value) {
@@ -17,35 +48,30 @@ function trackKey() {
         var redisKey = redisKeyInput.value;
         redisKeyInput.value = "";
 
-        var redisKeyLabel = document.createElement("label");
-        redisKeyLabel.id = getIdFromValue(redisKey);
-        redisKeyLabel.appendChild(document.createTextNode(redisKey));
+        addRedisKeyLabel(redisKey);
 
-        var redisKeyGap = document.createElement("label");
-        redisKeyGap.appendChild(document.createTextNode(" "));
-
-        redisKeyLabels.appendChild(redisKeyLabel);
-        redisKeyLabels.appendChild(redisKeyGap);
-
+        var keyTypeSelected = getKeyTypeSelected();
         // Send the key to the backend to track it
         var socket = io();
-        socket.emit('trackKey', redisKey);
+        if(keyTypeSelected == "KEY") {
+            socket.emit('trackKey', redisKey);
+        } else if(keyTypeSelected == "HKEY") {
+            socket.emit('trackHKey', redisKey);
+        }
+
+
 
     }
-}    
+}
 
 function removeKey() {
     var redisKey = redisKeyInput.value;
     redisKeyInput.value = "";
 
-    var redisKeyLabel = document.getElementById(getIdFromValue(redisKey));
-    if(redisKeyLabel) {
-        redisKeyLabels.removeChild(redisKeyLabel);
-
+    if(removeRedisKeyLabel(redisKey) == true) {
         // Send the key to the backend to stop tracking it
         var socket = io();
         socket.emit('removeKey', redisKey);
-
     } else {
         alert("No such key being tracked!")
     }

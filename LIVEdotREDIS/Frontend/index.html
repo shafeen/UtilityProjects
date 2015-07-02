@@ -16,6 +16,10 @@
 
 <div>
     <input id="redisKeyInput" type="text" placeholder=" Type Redis Key"/>
+    <select id="keyTypeSelector">
+        <option value="KEY">KEY</option>
+        <option value="HKEY">HKEY</option>
+    </select>
     <button onclick="trackKey()">Track</button>
     <button onclick="removeKey()">Remove</button>
     <div id="redisKeyLabels"></div>
