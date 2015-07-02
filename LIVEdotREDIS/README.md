@@ -4,8 +4,9 @@ LIVEdotREDIS
 
 ###### General Description
 
-LIVEdotREDIS will be used to monitor redis key values live.
-It is based on a fork of release v0.1 of **LIVEdotIO**.
+LIVEdotREDIS will be used to monitor [redis](http://redis.io) key values live.
+It is based on a fork of release [v0.1](http://github.com/shafeen/UtilityProjects/releases)
+of [**LIVEdotIO**](http://github.com/shafeen/UtilityProjects/tree/master/LIVEdotIO).
 
 ###### Serverside Dependencies
 
@@ -14,9 +15,7 @@ Also, since this is supposed to be a debug tool for REDIS, you should have a RED
 
 In the **Backend/** directory, run this on the terminal:
 ``` shell
-npm install express
-npm install socket.io
-npm install redis
+npm install express redis socket.io
 ```
 
 Apache reverse-proxy settings (may not be perfect):
