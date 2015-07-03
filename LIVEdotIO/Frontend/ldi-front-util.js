@@ -23,10 +23,11 @@ function createLDIView(idPostfix) {
     ldiView.appendChild(divPara1);
     ldiView.appendChild(divPara2);
 
-    // add the following styles below as CSS
-    ldiView.style.border = "thin solid #00bbbb";
-    ldiView.style.padding = "5px";
-    ldiView.style.margin = "5px";
+    ldiView.className = "ldiView";
+    divHeading.className = "ldiViewHead";
+    divPara1.className = "ldiViewPara";
+    divPara2.className = "ldiViewPara";
+
     return ldiView;
 }
 

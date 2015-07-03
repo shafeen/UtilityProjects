@@ -1,0 +1,32 @@
+p {
+    margin: 0;
+}
+hr {
+    margin: 1px;
+    border: dotted thin #5d6669;
+}
+
+.ldiView {
+    border: solid thin #262b2d;
+    background: #8991ad;
+    margin: 5px;
+    color: white;
+}
+.ldiViewHead {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 400;
+    font-size: 21px;
+    margin: 0;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+.ldiViewPara {
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 14px;
+    padding-left: 15px;
+    padding-top: 0;
+    padding-bottom: 5px;
+    color: antiquewhite;
+}
