@@ -33,14 +33,18 @@ function createLDIView(idPostfix) {
 
 function addNewLDIView(viewName) {
     var div = createLDIView(viewName);
+    $(div).hide();
     mainBody.insertBefore(div, mainBody.firstElementChild);
+    $(div).fadeIn();
 }
 
 function removeLDIView(viewName) {
     // Note: view IDs will be named after the event received
     var viewToRemove = document.getElementById(viewName);
     if(viewToRemove != null) {
-        mainBody.removeChild(viewToRemove)
+        $(viewToRemove).fadeOut("slow", function() {
+            $(this).remove();
+        });
     }
 }
 

@@ -15,14 +15,20 @@ function addRedisKeyLabel(redisKey) {
     var redisKeyGap = document.createElement("label");
     redisKeyGap.appendChild(document.createTextNode(" "));
 
+    $(redisKeyLabel).hide();
     redisKeyLabels.appendChild(redisKeyLabel);
+    $(redisKeyLabel).fadeIn();
     redisKeyLabels.appendChild(redisKeyGap);
 }
 
 function removeRedisKeyLabel(redisKey) {
     var redisKeyLabel = document.getElementById(getIdFromValue(redisKey));
     if(redisKeyLabel) {
-        redisKeyLabels.removeChild(redisKeyLabel);
+        // remove label gap and label after fading out
+        $(redisKeyLabel).fadeOut("slow", function() {
+            $(this).next().remove();
+            $(this).remove();
+        });
     }
     return (redisKeyLabel != null);
 }
@@ -58,9 +64,6 @@ function trackKey() {
         } else if(keyTypeSelected == "HKEY") {
             socket.emit('trackHKey', redisKey);
         }
-
-
-
     }
 }
 
