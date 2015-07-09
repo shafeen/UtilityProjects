@@ -33,17 +33,17 @@ function createLDIView(idPostfix) {
 
 
 function addNewLDIView(viewName) {
-    var div = createLDIView(viewName);
-    $(div).hide();
-    mainBody.insertBefore(div, mainBody.firstElementChild);
-    $(div).fadeIn();
+    var ldiView = createLDIView(viewName);
+    $(ldiView).hide();
+    mainBody.insertBefore(ldiView, mainBody.firstElementChild);
+    $(ldiView).fadeIn();
 }
 
 function removeLDIView(viewName) {
     // Note: view IDs will be named after the event received
-    var viewToRemove = document.getElementById(viewName);
-    if(viewToRemove != null) {
-        $(viewToRemove).fadeOut("slow", function() {
+    var ldiViewToRemove = document.getElementById(viewName);
+    if(ldiViewToRemove != null) {
+        $(ldiViewToRemove).fadeOut("slow", function() {
             $(this).remove();
         });
     }
