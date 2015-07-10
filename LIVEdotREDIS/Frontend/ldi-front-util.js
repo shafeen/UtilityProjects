@@ -1,4 +1,4 @@
-var mainBody = $("#myBody").get();
+var mainBody = $("#myBody").get(0);
 
 // LIVEdotIO view
 function createLDIView(idPostfix) {
@@ -40,7 +40,7 @@ function addNewLDIView(viewName) {
 
 function removeLDIView(viewName) {
     // Note: view IDs will be named after the event received
-    var ldiViewToRemove = $("#"+viewName).get();
+    var ldiViewToRemove = $("#"+viewName).get(0);
     if(ldiViewToRemove != null) {
         $(ldiViewToRemove).fadeOut("slow", function() {
             $(this).remove();
