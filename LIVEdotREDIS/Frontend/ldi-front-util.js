@@ -1,4 +1,4 @@
-var mainBody = document.getElementById("myBody");
+var mainBody = $("#myBody").get();
 
 // LIVEdotIO view
 function createLDIView(idPostfix) {
@@ -40,7 +40,7 @@ function addNewLDIView(viewName) {
 
 function removeLDIView(viewName) {
     // Note: view IDs will be named after the event received
-    var ldiViewToRemove = document.getElementById(viewName);
+    var ldiViewToRemove = $("#"+viewName).get();
     if(ldiViewToRemove != null) {
         $(ldiViewToRemove).fadeOut("slow", function() {
             $(this).remove();
@@ -53,7 +53,7 @@ function updateLDIViewData(ldiModel) {
     // Note: view MUST contain the elements whose IDs match the model's attributes
     for(var ldiModelAttr in ldiModel) {
         if(ldiModel.hasOwnProperty(ldiModelAttr)) {
-            document.getElementById(ldiModelAttr).innerHTML = ldiModel[ldiModelAttr];
+            $("#"+ldiModelAttr).html(ldiModel[ldiModelAttr]);
         }
     }
 }
