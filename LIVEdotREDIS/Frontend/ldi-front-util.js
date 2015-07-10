@@ -2,32 +2,35 @@ var mainBody = $("#myBody").get(0);
 
 // LIVEdotIO view
 function createLDIView(idPostfix) {
-    var ldiView = document.createElement("div");
-    var idPrefix = "";
-    ldiView.id = idPrefix + idPostfix;
+    var ldiView = $("<div></div>");
 
-    var divHeading = document.createElement("h4");
-    var divPara1 = document.createElement("p");
-    var divPara2 = document.createElement("p");
+    var idPrefix = "";
+    $(ldiView).attr("id", idPrefix + idPostfix);
+
+    var divHeading = $("<h4></h4>");
+    var divPara1 = $("<p></p>");
+    var divPara2 = $("<p></p>");
 
     // these IDs must match the corresponding model's attribute names
-    divHeading.id = "divHead_" + idPostfix;
-    divPara1.id = "divPara1_" + idPostfix;
-    divPara2.id = "divPara2_" + idPostfix;
+    divHeading.attr("id", "divHead_" + idPostfix);
+    divPara1.attr("id",  "divPara1_" + idPostfix);
+    divPara2.attr("id", "divPara2_" + idPostfix);
 
-    divHeading.appendChild(document.createTextNode("Heading " + idPostfix));
-    divPara1.appendChild(document.createTextNode("Info 1"));
-    divPara2.appendChild(document.createTextNode("Info 2"));
+    divHeading.append("Heading " + idPostfix);
+    divPara1.append("Info 1");
+    divPara2.append("Info 2");
 
-    ldiView.appendChild(divHeading);
-    ldiView.appendChild(document.createElement("hr"));
-    ldiView.appendChild(divPara1);
-    ldiView.appendChild(divPara2);
+    ldiView.append(divHeading)
+           .append($("<hr/>"))
+           .append(divPara1)
+           .append(divPara2);
 
-    ldiView.className = "ldiView";
-    divHeading.className = "ldiViewHead";
-    divPara1.className = "ldiViewPara";
-    return ldiView;
+    ldiView.addClass("ldiView");
+    divHeading.addClass("ldiViewHead");
+    divPara1.addClass("ldiViewPara");
+    divPara2.addClass("ldiViewPara");
+
+    return ldiView.get(0);
 }
 
 
@@ -40,9 +43,9 @@ function addNewLDIView(viewName) {
 
 function removeLDIView(viewName) {
     // Note: view IDs will be named after the event received
-    var ldiViewToRemove = $("#"+viewName).get(0);
-    if(ldiViewToRemove != null) {
-        $(ldiViewToRemove).fadeOut("slow", function() {
+    var ldiViewToRemove = $("#"+viewName);
+    if(ldiViewToRemove.get(0) != null) {
+        ldiViewToRemove.fadeOut("slow", function() {
             $(this).remove();
         });
     }
