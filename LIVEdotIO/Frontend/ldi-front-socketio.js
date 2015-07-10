@@ -10,7 +10,7 @@ socket.on('r', function(infoObj) {
 // LDIView addition/update code
 socket.on('a', function(infoObj) {
     // check if the view already exists (view IDs will be named after the event)
-    var viewToAdd = document.getElementById(infoObj.eventName);
+    var viewToAdd = $("#"+infoObj.eventName).get(0);
     if(viewToAdd == null) { // if it does not exist -> create it first
         addNewLDIView(infoObj.eventName);
     }
