@@ -5,13 +5,18 @@
  * Time: 6:22 PM
  */
 
+require_once("RESTfulRequestMethod.php");
+
 abstract class GetRequest extends RESTfulRequestMethod{
 
-    function getRequestVars() {
-        // TODO: Implement getRequestVars() method.
+    function verifyRequestType() {
+        if ($_SERVER["REQUEST_METHOD"] != "GET") {
+            throw new Exception("Invalid HTTP Request Method for class.");
+        }
     }
 
-    function handleRequest() {
-        // TODO: Implement handleRequest() method.
+    function getRequestVars() {
+        return $_GET;
     }
+
 }

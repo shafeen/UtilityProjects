@@ -5,13 +5,23 @@
  * Time: 6:23 PM
  */
 
-abstract class PutRequest extends RESTfulRequestMethod{
+require_once("RESTfulRequestMethod.php");
+
+abstract class PutRequest extends RESTfulRequestMethod {
+
+    protected $put_vars;
+
+    function verifyRequestType() {
+        if ($_SERVER["REQUEST_METHOD"] != "PUT") {
+            throw new Exception("Invalid HTTP Request Method for class.");
+        }
+    }
 
     function getRequestVars() {
-        // TODO: Implement getRequestVars() method.
+        if (!$this->put_vars) {
+            parse_str(file_get_contents("php://input"), $this->put_vars);
+        }
+        return $this->put_vars;
     }
 
-    function handleRequest() {
-        // TODO: Implement handleRequest() method.
-    }
 }

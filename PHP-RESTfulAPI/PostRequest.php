@@ -5,13 +5,18 @@
  * Time: 6:23 PM
  */
 
-abstract class PostRequest extends RESTfulRequestMethod{
+require_once("RESTfulRequestMethod.php");
+
+abstract class PostRequest extends RESTfulRequestMethod {
+
+    function verifyRequestType() {
+        if ($_SERVER["REQUEST_METHOD"] != "POST") {
+            throw new Exception("Invalid HTTP Request Method for class.");
+        }
+    }
 
     function getRequestVars() {
-        // TODO: Implement getRequestVars() method.
+        return $_POST;
     }
 
-    function handleRequest() {
-        // TODO: Implement handleRequest() method.
-    }
 }
