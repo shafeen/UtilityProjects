@@ -7,14 +7,10 @@ function createLDIView(idPostfix) {
     var idPrefix = "";
     $(ldiView).attr("id", idPrefix + idPostfix);
 
-    var divHeading = $("<h4></h4>");
-    var divPara1 = $("<p></p>");
-    var divPara2 = $("<p></p>");
-
-    // these IDs must match the corresponding model's attribute names
-    divHeading.attr("id", "divHead_" + idPostfix);
-    divPara1.attr("id",  "divPara1_" + idPostfix);
-    divPara2.attr("id", "divPara2_" + idPostfix);
+    // the elements' IDs must match the corresponding model's attribute names
+    var divHeading = $("<h4></h4>").attr("id", "divHead_" + idPostfix);
+    var divPara1 = $("<p></p>").attr("id",  "divPara1_" + idPostfix);
+    var divPara2 = $("<p></p>").attr("id", "divPara2_" + idPostfix);
 
     divHeading.append("Heading " + idPostfix);
     divPara1.append("Info 1");
