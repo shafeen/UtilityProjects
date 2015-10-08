@@ -4,13 +4,12 @@
 
 
 // LIVEdotIO model
-function createLDIModel(eventName, headingVal, para1Val, para2Val) {
-    var ldiModel = {};
-    ldiModel["divHead_"+eventName] = headingVal;
-    ldiModel["divPara1_"+eventName] = para1Val;
-    ldiModel["divPara2_"+eventName] = para2Val;
-    return ldiModel;
+function LDIModel(eventName, headingVal, para1Val, para2Val) {
+    this["divHead_"+eventName] = headingVal;
+    this["divPara1_"+eventName] = para1Val;
+    this["divPara2_"+eventName] = para2Val;
 }
+
 
 var express = require('express');
 // main code for index.js starts here
@@ -18,25 +17,23 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+// maps urls => resourcePath
+var urlMappings = {
+    '/'                      : '/Frontend/index.html',
+    '/ldi-front-util.js'     : '/Frontend/ldi-front-util.js',
+    '/ldi-front-socketio.js' : '/Frontend/ldi-front-socketio.js',
+    '/ldr-front.js'          : '/Frontend/ldr-front.js',
+    '/ldi-front.css'         : '/Frontend/ldi-front.css',
+    '/ldr-front.css'         : '/Frontend/ldr-front.css'
+};
 
-app.get('/', function (req, res) {
-    res.sendFile('/Frontend/index.html', { root: '../' });
-});
-app.get('/ldi-front-util.js', function (req, res) {
-    res.sendFile('/Frontend/ldi-front-util.js', { root: '../' });
-});
-app.get('/ldi-front-socketio.js', function (req, res) {
-    res.sendFile('/Frontend/ldi-front-socketio.js', { root: '../' });
-});
-app.get('/ldr-front.js', function (req, res) {
-    res.sendFile('/Frontend/ldr-front.js', { root: '../' });
-});
-app.get('/ldi-front.css', function (req, res) {
-    res.sendFile('/Frontend/ldi-front.css', { root: '../' });
-});
-app.get('/ldr-front.css', function (req, res) {
-    res.sendFile('/Frontend/ldr-front.css', { root: '../' });
-});
+for (var url in urlMappings) {
+    if (urlMappings.hasOwnProperty(url)) {
+        app.get(url, function (req, res) {
+            res.sendFile(urlMappings[url], { root: '../' });
+        });
+    }
+}
 
 io.on('connection', function(socket) {
     console.log('a client connected');
@@ -99,7 +96,7 @@ io.on('connection', function(socket) {
                 eventInfoObj.eventName = key;
                 if(reply) {
                     //console.log(key + " => "+ reply.toString());
-                    eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName, key, reply, "" );
+                    eventInfoObj.ldiModel = new LDIModel(eventInfoObj.eventName, key, reply, "" );
 
                     socket.emit('a', eventInfoObj);
                 } else { // key must no longer exist so remove frontend view
@@ -108,14 +105,13 @@ io.on('connection', function(socket) {
             });
         });
 
-        // now
         redisHKeys.forEach(function(key) {
             client.hgetall(key, function (err, hgetObj) {
                 var eventInfoObj = {};
                 eventInfoObj.eventName = key;
                 if(hgetObj) {
                     //console.log(key + " => "+ hgetObj.stringify());
-                    eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName, key, JSON.stringify(hgetObj), "" );
+                    eventInfoObj.ldiModel = new LDIModel(eventInfoObj.eventName, key, JSON.stringify(hgetObj), "" );
                     // addition/update event
                     socket.emit('a', eventInfoObj);
                 } else { // key must no longer exist so remove frontend view
