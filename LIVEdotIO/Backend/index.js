@@ -18,19 +18,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
-app.get('/', function (req, res) {
-    res.sendFile('/Frontend/index.html', { root: '../' });
-});
-app.get('/ldi-front-util.js', function (req, res) {
-    res.sendFile('/Frontend/ldi-front-util.js', { root: '../' });
-});
-app.get('/ldi-front-socketio.js', function (req, res) {
-    res.sendFile('/Frontend/ldi-front-socketio.js', { root: '../' });
-});
-app.get('/ldi-front.css', function (req, res) {
-    res.sendFile('/Frontend/ldi-front.css', { root: '../' });
-});
+// serve all static files from the ../Frontend/ directory
+app.use(express.static('../Frontend/'));
 
 io.on('connection', function(socket) {
     console.log('a client connected');
