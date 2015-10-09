@@ -5,7 +5,7 @@
 
 // LIVEdotIO model
 function LDIModel(eventName, headingVal, para1Val, para2Val) {
-    this["divHead_"+eventName] = headingVal;
+    this["divHead_" +eventName] = headingVal;
     this["divPara1_"+eventName] = para1Val;
     this["divPara2_"+eventName] = para2Val;
 }
@@ -17,23 +17,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-// maps urls => resourcePath
-var urlMappings = {
-    '/'                      : '/Frontend/index.html',
-    '/ldi-front-util.js'     : '/Frontend/ldi-front-util.js',
-    '/ldi-front-socketio.js' : '/Frontend/ldi-front-socketio.js',
-    '/ldr-front.js'          : '/Frontend/ldr-front.js',
-    '/ldi-front.css'         : '/Frontend/ldi-front.css',
-    '/ldr-front.css'         : '/Frontend/ldr-front.css'
-};
-
-for (var url in urlMappings) {
-    if (urlMappings.hasOwnProperty(url)) {
-        app.get(url, function (req, res) {
-            res.sendFile(urlMappings[url], { root: '../' });
-        });
-    }
-}
+// serve all static files from the ../Frontend/ directory
+app.use(express.static('../Frontend/'));
 
 io.on('connection', function(socket) {
     console.log('a client connected');
