@@ -1,13 +1,13 @@
 var mainBody = $("#myBody").get(0);
 
 // LIVEdotIO view
-function createLDIViewHandlebars(idPostfix) {
+function createLDIView(idPostfix) {
     var ldiViewTemplate = Handlebars.compile($("#ldiView-template").html());
     return $(ldiViewTemplate({idPostfix : idPostfix}))[0];
 }
 
 function addNewLDIView(viewName) {
-    var ldiView = createLDIViewHandlebars(viewName);
+    var ldiView = createLDIView(viewName);
     $(ldiView).hide();
     mainBody.insertBefore(ldiView, mainBody.firstElementChild);
     $(ldiView).fadeIn();
