@@ -15,7 +15,7 @@ Also, since this is supposed to be a debug tool for REDIS, you should have a RED
 
 In the **Backend/** directory, run this on the terminal:
 ``` shell
-npm install express redis socket.io
+npm install express redis socket.io handlebars
 ```
 
 Apache reverse-proxy settings (may not be perfect):
