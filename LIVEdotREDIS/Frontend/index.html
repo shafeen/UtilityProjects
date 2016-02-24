@@ -20,6 +20,9 @@
     <!-- LIVEdotREDIS page and view styles -->
     <link href="ldr-front.css" rel="stylesheet" type="text/css">
 
+    <!-- Handlebars library (replace src with the correct url) -->
+    <script src="../Backend/node_modules/handlebars/dist/handlebars.min.js"></script>
+
 </head>
 <body>
 
@@ -37,6 +40,14 @@
 
 
 <main id="myBody">
+
+<script id="ldiView-template" type="text/x-handlebars-template">
+    <div id="{{idPostfix}}" class="ldiView">
+        <h4 class="ldiViewHead" id="divHead_{{idPostfix}}">Heading {{idPostFix}}</h4>
+        <p class="ldiViewPara" id="divPara1_{{idPostfix}}">Info 1</p>
+        <p class="ldiViewPara" id="divPara2_{{idPostfix}}">Info 2</p>
+    </div>
+</script>
 
 <script src="ldi-front-util.js"></script>
 

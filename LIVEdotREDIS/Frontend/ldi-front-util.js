@@ -1,6 +1,14 @@
 var mainBody = $("#myBody").get(0);
 
+// alternative to createLDIView using handlebars
+// TODO: replace createLDIView with this
+function createLDIViewHandlebars(idPostfix) {
+    var ldiViewTemplate = Handlebars.compile($("#ldiView-template").html());
+    return $(ldiViewTemplate({idPostfix : idPostfix}))[0];
+}
+
 // LIVEdotIO view
+// TODO: remove this when no longer used
 function createLDIView(idPostfix) {
     var ldiView = $("<div></div>");
 
@@ -31,7 +39,7 @@ function createLDIView(idPostfix) {
 
 
 function addNewLDIView(viewName) {
-    var ldiView = createLDIView(viewName);
+    var ldiView = createLDIViewHandlebars(viewName);
     $(ldiView).hide();
     mainBody.insertBefore(ldiView, mainBody.firstElementChild);
     $(ldiView).fadeIn();
