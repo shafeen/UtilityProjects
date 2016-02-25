@@ -8,17 +8,14 @@ function getIdFromValue(value) {
 // TODO: break out the utility functions to their own files
 function addRedisKeyLabel(redisKey) {
     // Add a label to indicate that we are tracking this key
-    var redisKeyLabel = document.createElement("label");
-    redisKeyLabel.id = getIdFromValue(redisKey);
-    redisKeyLabel.appendChild(document.createTextNode(redisKey));
-
-    var redisKeyGap = document.createElement("label");
-    redisKeyGap.appendChild(document.createTextNode(" "));
-
-    $(redisKeyLabel).hide();
-    redisKeyLabels.appendChild(redisKeyLabel);
-    $(redisKeyLabel).fadeIn();
-    redisKeyLabels.appendChild(redisKeyGap);
+    var redisKeyLabel = $('<label></label>');
+    redisKeyLabel.attr("id", getIdFromValue(redisKey));
+    redisKeyLabel.append(redisKey);
+    redisKeyLabel.hide();
+    $(redisKeyLabels).append(redisKeyLabel);
+    redisKeyLabel.fadeIn();
+    var redisKeyGap = $('<label> </label>');
+    $(redisKeyLabels).append(redisKeyGap);
 }
 
 function removeRedisKeyLabel(redisKey) {
