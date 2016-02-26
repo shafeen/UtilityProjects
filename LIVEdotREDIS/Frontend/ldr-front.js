@@ -19,23 +19,23 @@ function addRedisKeyLabel(redisKey) {
 }
 
 function removeRedisKeyLabel(redisKey) {
-    var redisKeyLabel = document.getElementById(getIdFromValue(redisKey));
-    if(redisKeyLabel) {
+    var redisKeyLabel = $('#'+getIdFromValue(redisKey));
+    if(redisKeyLabel.length) {
         // remove label gap and label after fading out
-        $(redisKeyLabel).fadeOut("slow", function() {
+        redisKeyLabel.fadeOut("slow", function() {
             $(this).next().remove();
             $(this).remove();
         });
     }
-    return (redisKeyLabel != null);
+    return (redisKeyLabel.length != 0);
 }
 
 
 function getKeyTypeSelected() {
     var keyTypeSelected = "KEY";
-    var keyTypeSelector = document.getElementById("keyTypeSelector");
+    var keyTypeSelector = $("#keyTypeSelector");
     if(keyTypeSelector) {
-        keyTypeSelected = keyTypeSelector.options[keyTypeSelector.selectedIndex].text;
+        keyTypeSelected = keyTypeSelector.children()[keyTypeSelector.selectedIndex].text;
     }
     return keyTypeSelected;
 }
@@ -43,7 +43,7 @@ function getKeyTypeSelected() {
 function trackKey() {
     if(!redisKeyInput.value) {
         alert("Type in a key first!");
-    } else if(document.getElementById(getIdFromValue(redisKeyInput.value))) {
+    } else if($('#'+getIdFromValue(redisKeyInput.value)).length) {
         alert("That key is already being tracked!");
         redisKeyInput.value = "";
     } else {
