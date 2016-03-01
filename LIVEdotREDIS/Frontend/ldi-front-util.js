@@ -1,4 +1,4 @@
-var mainBody = $("#myBody").get(0);
+var mainBody = $('#myBody');
 
 // LIVEdotIO view
 function createLDIView(idPostfix) {
@@ -9,7 +9,7 @@ function createLDIView(idPostfix) {
 function addNewLDIView(viewName) {
     var ldiView = createLDIView(viewName);
     $(ldiView).hide();
-    mainBody.insertBefore(ldiView, mainBody.firstElementChild);
+    mainBody.children().first().before(ldiView);
     $(ldiView).fadeIn();
 }
 

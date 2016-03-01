@@ -1,21 +1,24 @@
-var redisKeyInput = document.getElementById("redisKeyInput");
-var redisKeyLabels = document.getElementById("redisKeyLabels");
+// TODO: namespace all of these functions
+
+var redisKeyInput = $('#redisKeyInput');
+var redisKeyLabels = $('#redisKeyLabels');
 
 function getIdFromValue(value) {
     return "key_" + value;
 }
 
 // TODO: break out the utility functions to their own files
+// TODO: add this key label using a handlebars template
 function addRedisKeyLabel(redisKey) {
     // Add a label to indicate that we are tracking this key
     var redisKeyLabel = $('<label></label>');
     redisKeyLabel.attr("id", getIdFromValue(redisKey));
     redisKeyLabel.append(redisKey);
     redisKeyLabel.hide();
-    $(redisKeyLabels).append(redisKeyLabel);
+    redisKeyLabels.append(redisKeyLabel);
     redisKeyLabel.fadeIn();
     var redisKeyGap = $('<label> </label>');
-    $(redisKeyLabels).append(redisKeyGap);
+    redisKeyLabels.append(redisKeyGap);
 }
 
 function removeRedisKeyLabel(redisKey) {
@@ -41,15 +44,15 @@ function getKeyTypeSelected() {
 }
 
 function trackKey() {
-    if(!redisKeyInput.value) {
+    if(!redisKeyInput.val()) {
         alert("Type in a key first!");
-    } else if($('#'+getIdFromValue(redisKeyInput.value)).length) {
+    } else if($('#'+getIdFromValue(redisKeyInput.val())).length) {
         alert("That key is already being tracked!");
-        redisKeyInput.value = "";
+        redisKeyInput.val("");
     } else {
         // TODO: don't allow whitespaces in keys
-        var redisKey = redisKeyInput.value;
-        redisKeyInput.value = "";
+        var redisKey = redisKeyInput.val();
+        redisKeyInput.val("");
 
         addRedisKeyLabel(redisKey);
 
@@ -65,8 +68,8 @@ function trackKey() {
 }
 
 function removeKey() {
-    var redisKey = redisKeyInput.value;
-    redisKeyInput.value = "";
+    var redisKey = redisKeyInput.val();
+    redisKeyInput.val("");
 
     if(removeRedisKeyLabel(redisKey) == true) {
         // Send the key to the backend to stop tracking it
