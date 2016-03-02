@@ -7,27 +7,13 @@ function getIdFromValue(value) {
     return "key_" + value;
 }
 
-// TODO: use this as an alternative to addRedisKeyLabel() using templates
-function addRedisKeyLabel2(redisKey) {
+// TODO: break out the utility functions to their own files
+function addRedisKeyLabel(redisKey) {
     var redisKeyLabelTemplate = Handlebars.compile($('#redisKeyLabel-template').html());
     var redisKeyLabel = $(redisKeyLabelTemplate({redisKey: redisKey}));
     redisKeyLabel.hide();
-    redisKeyLabels.append(redisKeyLabelTemplate({redisKey : redisKey}));
-    redisKeyLabel.fadeIn();
-}
-
-// TODO: break out the utility functions to their own files
-// TODO: add this key label using a handlebars template
-function addRedisKeyLabel(redisKey) {
-    // Add a label to indicate that we are tracking this key
-    var redisKeyLabel = $('<label></label>');
-    redisKeyLabel.attr("id", getIdFromValue(redisKey));
-    redisKeyLabel.append(redisKey);
-    redisKeyLabel.hide();
     redisKeyLabels.append(redisKeyLabel);
     redisKeyLabel.fadeIn();
-    var redisKeyGap = $('<label> </label>');
-    redisKeyLabels.append(redisKeyGap);
 }
 
 function removeRedisKeyLabel(redisKey) {
@@ -41,7 +27,6 @@ function removeRedisKeyLabel(redisKey) {
     }
     return (redisKeyLabel.length != 0);
 }
-
 
 function getKeyTypeSelected() {
     var keyTypeSelected = "KEY";
