@@ -7,6 +7,15 @@ function getIdFromValue(value) {
     return "key_" + value;
 }
 
+// TODO: use this as an alternative to addRedisKeyLabel() using templates
+function addRedisKeyLabel2(redisKey) {
+    var redisKeyLabelTemplate = Handlebars.compile($('#redisKeyLabel-template').html());
+    var redisKeyLabel = $(redisKeyLabelTemplate({redisKey: redisKey}));
+    redisKeyLabel.hide();
+    redisKeyLabels.append(redisKeyLabelTemplate({redisKey : redisKey}));
+    redisKeyLabel.fadeIn();
+}
+
 // TODO: break out the utility functions to their own files
 // TODO: add this key label using a handlebars template
 function addRedisKeyLabel(redisKey) {
