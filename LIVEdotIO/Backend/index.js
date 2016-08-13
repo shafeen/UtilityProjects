@@ -4,12 +4,10 @@
 
 
 // LIVEdotIO model
-function createLDIModel(eventName, headingVal, para1Val, para2Val) {
-    var ldiModel = {};
-    ldiModel["divHead_"+eventName] = headingVal;
-    ldiModel["divPara1_"+eventName] = para1Val;
-    ldiModel["divPara2_"+eventName] = para2Val;
-    return ldiModel;
+function LDIModel(eventName, headingVal, para1Val, para2Val) {
+    this["divHead_"+eventName] = headingVal;
+    this["divPara1_"+eventName] = para1Val;
+    this["divPara2_"+eventName] = para2Val;
 }
 
 var express = require('express');
@@ -28,7 +26,6 @@ io.on('connection', function(socket) {
         console.log('a client disconnected');
     });
 
-
     // we want the Frontend to be able to do 3 things:
     // - add or update new or existing LIVEdotIO view - 'a'
     // - remove an active LIVEdotIO view - 'r'
@@ -42,7 +39,7 @@ io.on('connection', function(socket) {
         eventInfoObj.eventName = "publishEvent";
         // the model will contain the relevant data (or messages) to show in the frontend views
         // NOTE: model's eventName postfix MUST match the eventName sent in the msg object
-        eventInfoObj.ldiModel = createLDIModel(eventInfoObj.eventName,
+        eventInfoObj.ldiModel = new LDIModel(eventInfoObj.eventName,
             "Head",
             new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
             (new Date()).toDateString() );
@@ -62,8 +59,6 @@ io.on('connection', function(socket) {
     }, REMOVAL_EVENT_INTERVAL);
 
 });
-
-
 
 http.listen(3000, function() {
     console.log('listening on port 3000');
