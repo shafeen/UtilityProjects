@@ -33,7 +33,6 @@ router.get('/profile', isLoggedIn, function (req, res) {
   });
 });
 
-router.use('/view', require('./views'));
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

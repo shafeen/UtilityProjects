@@ -49,6 +49,7 @@ app.use(flash());
 
 // routes
 app.use('/', index);
+app.use('/partials', require('./routes/partials'));
 app.use('/authenticate', authenticate);
 
 // catch 404 and forward to error handler
