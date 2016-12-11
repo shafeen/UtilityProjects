@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app)
   head
     title= title
     script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js")
@@ -10,10 +10,13 @@ html
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js")
     script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js")
 
+    style.
+      body {
+        padding-top: 65px
+      }
   body
+    div(ng-include="'/partials/navbar/navbar'")
+
     block content
 
     script(src="/config.js")
-    script(src="/dashboard/DashboardCtrl.js")
-    script(src="/dashboard/GameCtrl.js")
-    script(src="/profile/ProfileCtrl.js")

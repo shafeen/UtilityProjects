@@ -1,0 +1,39 @@
+div(ng-controller='NavbarCtrl as navbar')
+  nav.navbar.navbar-default.navbar-fixed-top
+    .container-fluid
+      // Brand and toggle get grouped for better mobile display
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') basicMEAN
+
+      // Collect the nav links, forms, and other content for toggling
+      #bs-example-navbar-collapse-1.collapse.navbar-collapse
+        ul.nav.navbar-nav
+          li(class="{{(navbar.$location.path() == '/view1' || navbar.$location.path() == '/')? 'active' : ''}}")
+            a(href='#view1')
+              | Link 2
+              span.sr-only (current)
+          li(class="{{navbar.$location.path() == '/view2'? 'active' : ''}}")
+            a(href='#view2') Link 1
+          li(ng-show='navbar.loading')
+            a(href='')
+              i.fa.fa-refresh.fa-lg.text-info(class="{{navbar.loading? 'fa-spin' : ''}}")
+
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a.dropdown-toggle(href='/login', data-toggle='dropdown')
+              | Log In
+              span.caret
+            ul.dropdown-menu(style='width: 300px; ', role='menu')
+              li.col-lg-12(ng-include="'partials/navbar/login-form'")
+          li
+            .navbar-form(role='alertdialog')
+              a.btn.btn-success.btn-outline(href='', data-toggle='modal', data-target='#signup-modal')
+                i.fa.fa-lock
+                |  Sign Up
+  div(ng-include="'partials/navbar/signup-modal'")
+
