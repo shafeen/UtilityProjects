@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var uuid = require('uuid/v4');
 
+const AUTHENTICATE_BASE_URL = '/authenticate';
 
 router.get('/', function(req, res, next) {
   res.redirect('/login');
@@ -10,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.get('/signup', function(req, res) {
   res.render('signup', {
     title: 'Create an account',
-    signupUrl: '/authenticate/signup',
+    signupUrl: AUTHENTICATE_BASE_URL+'/signup',
     signupMsg: req.flash('signupMsg')
   });
 });
@@ -21,7 +22,7 @@ router.get('/login', function(req, res) {
   }
   res.render('login', {
     title: 'Log in',
-    loginUrl: '/authenticate/login',
+    loginUrl: AUTHENTICATE_BASE_URL+'/login',
     loginMsg: req.flash('loginMsg')
   });
 });
@@ -29,7 +30,7 @@ router.get('/login', function(req, res) {
 router.get('/profile', isLoggedIn, function (req, res) {
   res.render('profile', {
     user: req.user,
-    logoutUrl: '/authenticate/logout'
+    logoutUrl: AUTHENTICATE_BASE_URL+'/logout'
   });
 });
 

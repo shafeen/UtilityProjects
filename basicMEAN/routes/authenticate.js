@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
+const URL_SIGNUP_SUCCESS = '/profile';
+const URL_SIGNUP_FAILURE = '/signup';
+const URL_LOGIN_SUCCESS  = '/profile';
+const URL_LOGIN_FAILURE  = '/login';
+const URL_LOGOUT_SUCCESS = '/';
+
 router.get('/logout', function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect(URL_LOGOUT_SUCCESS);
 });
 
 module.exports = function(passport) {
@@ -11,8 +17,8 @@ module.exports = function(passport) {
         console.log('Starting Signup..');
         return next();
     }, passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
+        successRedirect: URL_SIGNUP_SUCCESS,
+        failureRedirect: URL_SIGNUP_FAILURE,
         failureFlash: true
     }));
 
@@ -22,8 +28,8 @@ module.exports = function(passport) {
             return next();
         },
         passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/login',
+        successRedirect: URL_LOGIN_SUCCESS,
+        failureRedirect: URL_LOGIN_FAILURE,
         failureFlash: true
     }));
 
