@@ -33,6 +33,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(function denyTemplateFiles(req, res, next) {
+    if (req.originalUrl.endsWith('.pug') ) {
+        res.status(403).send('Restricted resource!');
+    } else {
+        next();
+    }
+});
+app.use(express.static(path.join(__dirname, 'ng-client')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // setup app to use passportjs
