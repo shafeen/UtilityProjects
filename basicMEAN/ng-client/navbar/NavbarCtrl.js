@@ -12,7 +12,7 @@ angular.module('basicMEAN')
     });
 
     const LOGIN_URL = '/authenticate/login';
-    const LOGIN_SUCCESS_URL = '/dashboard';
+    const LOGIN_SUCCESS_URL = '/profile';
     navbar.login = function() {
         var loginParams = {
             email: navbar.loginEmail,
@@ -31,7 +31,7 @@ angular.module('basicMEAN')
     };
 
     const SIGNUP_URL = '/authenticate/signup';
-    const SIGNUP_SUCCESS_URL = '/dashboard';
+    const SIGNUP_SUCCESS_URL = '/profile';
     navbar.signup = function () {
         if (verifySignupParams() == false) {
             console.log('there were errors in the signup params!');
