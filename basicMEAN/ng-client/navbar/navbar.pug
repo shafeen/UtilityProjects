@@ -15,10 +15,10 @@ div(ng-controller='NavbarCtrl as navbar')
         ul.nav.navbar-nav
           li(class="{{(navbar.$location.path() == '/view1' || navbar.$location.path() == '/')? 'active' : ''}}")
             a(href='#view1')
-              | Link 2
+              | View 1
               span.sr-only (current)
           li(class="{{navbar.$location.path() == '/view2'? 'active' : ''}}")
-            a(href='#view2') Link 1
+            a(href='#view2') View 2
           li(ng-show='navbar.loading')
             a(href='')
               i.fa.fa-refresh.fa-lg.text-info(class="{{navbar.loading? 'fa-spin' : ''}}")

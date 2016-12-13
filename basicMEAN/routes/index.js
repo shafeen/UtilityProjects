@@ -5,7 +5,11 @@ var uuid = require('uuid/v4');
 const AUTHENTICATE_BASE_URL = '/authenticate';
 
 router.get('/', function(req, res, next) {
-  res.redirect('/login');
+  if (req.isAuthenticated()) {
+    res.redirect('/profile');
+  } else {
+    res.render('index');
+  }
 });
 
 router.get('/signup', function(req, res) {
