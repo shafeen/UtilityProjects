@@ -24,16 +24,23 @@ div(ng-controller='NavbarCtrl as navbar')
               i.fa.fa-refresh.fa-lg.text-info(class="{{navbar.loading? 'fa-spin' : ''}}")
 
         ul.nav.navbar-nav.navbar-right
-          li.dropdown
-            a.dropdown-toggle(href='/login', data-toggle='dropdown')
-              | Log In
-              span.caret
-            ul.dropdown-menu(style='width: 300px; ', role='menu')
-              li.col-lg-12(ng-include="'partials/navbar/login-form'")
-          li
-            .navbar-form(role='alertdialog')
-              a.btn.btn-success.btn-outline(href='', data-toggle='modal', data-target='#signup-modal')
-                i.fa.fa-lock
-                |  Sign Up
+          if !user
+            li.dropdown
+              a.dropdown-toggle(href='/login', data-toggle='dropdown')
+                | Log In
+                span.caret
+              ul.dropdown-menu(style='width: 300px; ', role='menu')
+                li.col-lg-12(ng-include="'partials/navbar/login-form'")
+            li
+              .navbar-form(role='alertdialog')
+                a.btn.btn-success.btn-outline(href='', data-toggle='modal', data-target='#signup-modal')
+                  i.fa.fa-lock
+                  |  Sign Up
+          else
+            li
+              .navbar-form
+                a.btn.btn-warning.btn-outline(href='authenticate/logout')
+                  |  Log Out
+
   div(ng-include="'partials/navbar/signup-modal'")
 
