@@ -8,7 +8,7 @@ div(ng-controller='NavbarCtrl as navbar')
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.navbar-brand(href='#') basicMEAN
+        a.navbar-brand(href='#view1') basicMEAN
 
       // Collect the nav links, forms, and other content for toggling
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
@@ -17,8 +17,14 @@ div(ng-controller='NavbarCtrl as navbar')
             a(href='#view1')
               | View 1
               span.sr-only (current)
+
           li(class="{{navbar.$location.path() == '/view2'? 'active' : ''}}")
             a(href='#view2') View 2
+
+          if user
+            li(class="{{navbar.$location.path() == '/view-protected'? 'active' : ''}}")
+              a(href='#view-protected') View-Protected
+
           li(ng-show='navbar.loading')
             a(href='')
               i.fa.fa-refresh.fa-lg.text-info(class="{{navbar.loading? 'fa-spin' : ''}}")
