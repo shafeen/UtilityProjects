@@ -14,7 +14,7 @@ angular.module('basicMEAN', ["ngRoute"])
             controller: "View2Ctrl as view2"
         })
         .when("/view-protected", {
-            templateUrl: "partials/view-protected/view-protected",
+            templateUrl: "partials/secure/view-protected/view-protected",
             controller: "ViewProtectedCtrl as viewProtected"
         });
 });
