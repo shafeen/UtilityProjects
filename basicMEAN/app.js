@@ -41,6 +41,7 @@ app.use(function denyTemplateFiles(req, res, next) {
     }
 });
 app.use(express.static(path.join(__dirname, 'ng-client')));
+app.use(express.static(path.join(__dirname, 'ng-client-secure')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // setup app to use passportjs
