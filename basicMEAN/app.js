@@ -10,9 +10,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('express-flash');
 
-// connect to the database
-var databaseConfig = require('./config/database.js');
-databaseConfig(mongoose);
+// connect to the database -- NOTE: uncomment when you're ready to add in persistence
+// var databaseConfig = require('./config/database.js');
+// databaseConfig(mongoose);
 
 // configure passportjs for login and signup
 var passportConfig = require('./config/passport.js');
@@ -45,7 +45,7 @@ app.use(express.static(path.join(__dirname, 'ng-client-secure')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // setup app to use passportjs
-// note: change secure to false for an https site
+// NOTE: change secure to false for an https site
 app.use(session({
     secret: 'sessionSecret',
     resave: false,
