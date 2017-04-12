@@ -22,8 +22,9 @@ angular.module('basicMEAN', ["ngRoute"])
 /*
 To add a new view, follow these steps:
   - create a folder for the view in ng-client OR ng-client-protected
-  - create a template pug file for the view
+  - create a template .pug file for the view
   - create a controller for the view
   - preload the controller's js file in layout.pug
   - add a route for the view in the config above 
+  - have a link to your view available somewhere
 */
