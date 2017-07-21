@@ -13,6 +13,10 @@ angular.module('basicMEAN', ["ngRoute"])
             templateUrl: "partials/view2/view2",
             controller: "View2Ctrl as $ctrl"
         })
+        .when("/search", {
+            templateUrl: "partials/view-search/view-search",
+            controller: "ViewSearchCtrl as $ctrl"
+        })
         .when("/view-protected", {
             templateUrl: "partials/secure/view-protected/view-protected",
             controller: "ViewProtectedCtrl as $ctrl"
