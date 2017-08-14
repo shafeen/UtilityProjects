@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var uuid = require('uuid/v4');
+const express = require('express');
+const router = express.Router();
+const settings = require('../config/settings/settings.json');
 
 const AUTHENTICATE_BASE_URL = '/authenticate';
 

@@ -43,6 +43,7 @@ app.use(function denyTemplateFiles(req, res, next) {
 app.use(express.static(path.join(__dirname, 'ng-client')));
 app.use(express.static(path.join(__dirname, 'ng-client-secure')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/settings', express.static(path.join(__dirname, 'config', 'settings')));
 
 // setup app to use passportjs
 // NOTE: change secure to false for an https site

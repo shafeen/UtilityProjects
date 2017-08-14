@@ -1,0 +1,5 @@
+{
+  "msg" : "this is a default message in the settings file",
+  "view1Msg" : "This is some sample text relevant to view 1, stored in the settings.json file.",
+  "view2Msg" : "This is some sample text relevant to view 2, stored in the settings.json file."
+}
