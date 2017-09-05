@@ -1,5 +1,5 @@
 angular.module('basicMEAN')
-.controller('NavbarCtrl', function ($scope, $http, $location, $window, $timeout) {
+.controller('NavbarCtrl', ['$scope', '$http', '$location', '$window', '$timeout', function ($scope, $http, $location, $window, $timeout) {
     var navbar = this;
 
     navbar.$location = $location;
@@ -113,4 +113,4 @@ angular.module('basicMEAN')
     navbar.clicked = function () {
         console.log('test click!');
     };
-});
+}]);

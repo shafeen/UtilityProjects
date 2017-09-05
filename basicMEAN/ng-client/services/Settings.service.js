@@ -1,5 +1,5 @@
 angular.module('basicMEAN')
-.service('Settings', function ($http) {
+.service('Settings', ['$http', function ($http) {
     let self = this;
 
     self.data = null;
@@ -9,4 +9,4 @@ angular.module('basicMEAN')
         .then(function (response) {
             self.data = response.data;
         });
-});
+}]);

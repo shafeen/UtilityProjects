@@ -1,5 +1,5 @@
 angular.module('basicMEAN', ["ngRoute"])
-.config(function ($routeProvider) {
+.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "partials/view1/view1",
@@ -21,7 +21,7 @@ angular.module('basicMEAN', ["ngRoute"])
             templateUrl: "partials/secure/view-protected/view-protected",
             controller: "ViewProtectedCtrl as $ctrl"
         });
-});
+}]);
 
 /*
 To add a new view, follow these steps:

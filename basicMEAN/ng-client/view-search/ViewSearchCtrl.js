@@ -1,5 +1,5 @@
 angular.module('basicMEAN')
-.controller('ViewSearchCtrl', function ($location, Search) {
+.controller('ViewSearchCtrl', ['$location', 'Search', function ($location, Search) {
     let self = this;
 
     self.searchViewData = {
@@ -28,4 +28,4 @@ angular.module('basicMEAN')
     };
 
     self.$onInit();
-});
+}]);

@@ -1,5 +1,5 @@
 angular.module('basicMEAN')
-.service('Search', function ($location, $http, $q) {
+.service('Search', ['$location', '$http', '$q', function ($location, $http, $q) {
     let self = this;
 
     self.SEARCH_VIEW_ROUTE = '/search'; // TODO: create a config service
@@ -31,4 +31,4 @@ angular.module('basicMEAN')
         });
     };
 
-});
+}]);

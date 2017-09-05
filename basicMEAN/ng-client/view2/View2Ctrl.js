@@ -1,5 +1,5 @@
 angular.module('basicMEAN')
-.controller('View2Ctrl', function (Settings) {
+.controller('View2Ctrl', ['Settings', function (Settings) {
     var self = this;
 
     self.message = 'This is some more text relevant to view 2, but is stored in the View2Ctrl.';
@@ -11,4 +11,4 @@ angular.module('basicMEAN')
     };
 
     self.$onInit();
-});
+}]);
