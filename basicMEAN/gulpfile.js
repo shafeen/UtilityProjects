@@ -40,3 +40,16 @@ gulp.task('js-concat-minify', () => {
         .pipe(uglify())
         .pipe(gulp.dest('./public/build/min-js/'));
 });
+
+gulp.task('replace-test', () => {
+
+});
+
+gulp.task('inject-test', () => {
+    let angularJsFiles = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'], {read: true});
+    let target = gulp.src('./views/layout.pug');
+    return target
+        .pipe(plugins.inject(
+            angularJsFiles.pipe(plugins.concat('ng-client.js')).pipe(gulp.dest('./public/build/')), {ignorePath:['public']}
+        )).pipe(gulp.dest('./views/'));
+});
