@@ -28,11 +28,15 @@ gulp.task('add-view', () => {
         .pipe(gulp.dest(destFolder));
 });
 
-gulp.task('js', () => {
+gulp.task('js-concat-minify', () => {
     // EXAMPLE: (TODO: switch to using the concat file in layout.pug)
     // concat all angular js files, while controlling the order of files
     var js = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'])
         .pipe(plugins.concat('ng-client.js'));
+
+    var uglify = plugins.uglifyEs.default;
     return js
-        .pipe(gulp.dest('./public/build/js/'));
+        .pipe(gulp.dest('./public/build/js/'))
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/build/min-js/'));
 });
