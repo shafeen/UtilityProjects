@@ -45,11 +45,24 @@ gulp.task('replace-test', () => {
 
 });
 
+gulp.task('watch-angular', () => {
+    return plugins.watch(['./ng-client/**/*.js', './ng-client-secure/**/*.js'], () => {
+        return gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'], {read: true})
+            .pipe(plugins.concat('ng-client.js'))
+            .pipe(plugins.uglifyEs.default())
+            .pipe(plugins.rename('ng-client.min.js'))
+            .pipe(gulp.dest('./public/build/'));
+    });
+});
+
 gulp.task('inject-test', () => {
-    let angularJsFiles = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'], {read: true});
+    let angularJsFiles = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'], {read: true})
+        .pipe(plugins.concat('ng-client.js'))
+        .pipe(plugins.uglifyEs.default())
+        .pipe(plugins.rename('ng-client.min.js'))
+        .pipe(gulp.dest('./public/build/'));
     let target = gulp.src('./views/layout.pug');
     return target
-        .pipe(plugins.inject(
-            angularJsFiles.pipe(plugins.concat('ng-client.js')).pipe(gulp.dest('./public/build/')), {ignorePath:['public']}
-        )).pipe(gulp.dest('./views/'));
+        .pipe(plugins.inject(angularJsFiles, {ignorePath:['public']}))
+        .pipe(gulp.dest('./views/'));
 });
