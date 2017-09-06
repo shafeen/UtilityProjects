@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var argv = require('yargs').argv;
 var plugins = require('gulp-load-plugins')({lazy: true});
 
+const BUILD_PATH = './public/build/';
+
 gulp.task('test', () => {
     console.log('hello i am a test gulp task');
 });
@@ -51,7 +53,7 @@ gulp.task('watch-angular', () => {
             .pipe(plugins.concat('ng-client.js'))
             .pipe(plugins.uglifyEs.default())
             .pipe(plugins.rename('ng-client.min.js'))
-            .pipe(gulp.dest('./public/build/'));
+            .pipe(gulp.dest(BUILD_PATH));
     });
 });
 
@@ -60,9 +62,17 @@ gulp.task('inject-test', () => {
         .pipe(plugins.concat('ng-client.js'))
         .pipe(plugins.uglifyEs.default())
         .pipe(plugins.rename('ng-client.min.js'))
-        .pipe(gulp.dest('./public/build/'));
+        .pipe(gulp.dest(BUILD_PATH));
     let target = gulp.src('./views/layout.pug');
     return target
         .pipe(plugins.inject(angularJsFiles, {ignorePath:['public']}))
         .pipe(gulp.dest('./views/'));
+});
+
+gulp.task('build-ng-client', () => {
+    let angularJsFiles = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js']);
+    return angularJsFiles.pipe(plugins.concat('ng-client.js'))
+        .pipe(plugins.uglifyEs.default())
+        .pipe(plugins.rename('ng-client.min.js'))
+        .pipe(gulp.dest(BUILD_PATH));
 });
