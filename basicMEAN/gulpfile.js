@@ -43,8 +43,20 @@ gulp.task('js-concat-minify', () => {
         .pipe(gulp.dest('./public/build/min-js/'));
 });
 
-gulp.task('replace-test', () => {
-
+gulp.task('prep-dist', ['build-ng-client'], () => {
+    const DIST_BASE = './dist';
+    // copy clientside files
+    gulp.src(['./ng-client/**/*.pug', './ng-client-secure/**/*.pug', './public/**/*'], {base: './'})
+        .pipe(gulp.dest(DIST_BASE));
+    // copy serverside files
+    return gulp.src(['./bin/**/*',
+        './config/**/*',
+        './models/**/*',
+        './routes/**/*',
+        './views/**/*',
+        './*.js',
+        './*.json'], {base: './'})
+        .pipe(gulp.dest(DIST_BASE));
 });
 
 gulp.task('build-ng-client', () => {
