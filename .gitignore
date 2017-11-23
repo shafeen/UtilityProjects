@@ -3,3 +3,4 @@ out/
 node_modules/
 basicMEAN/public/build/
 dist/
+*.iml

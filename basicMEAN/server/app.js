@@ -1,27 +1,27 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var session = require('express-session');
-var mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('express-flash');
+const session = require('express-session');
+const mongoose = require('mongoose');
+const passport = require('passport');
+const flash = require('express-flash');
 
 // connect to the database -- NOTE: uncomment when you're ready to add in persistence
 // var databaseConfig = require('./config/database.js');
 // databaseConfig(mongoose);
 
 // configure passportjs for login and signup
-var passportConfig = require('./config/passport.js');
+const passportConfig = require('./config/passport.js');
 passportConfig(passport);
 
-var index = require('./routes/index');
-var authenticate = require('./routes/authenticate')(passport);
+const index = require('./routes/index');
+const authenticate = require('./routes/authenticate')(passport);
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,9 +40,9 @@ app.use(function denyTemplateFiles(req, res, next) {
         next();
     }
 });
-app.use(express.static(path.join(__dirname, 'ng-client')));
-app.use(express.static(path.join(__dirname, 'ng-client-secure')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'client', 'ng-client')));
+app.use(express.static(path.join(__dirname, '..', 'client', 'ng-client-secure')));
+app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
 app.use('/settings', express.static(path.join(__dirname, 'config', 'settings')));
 
 // setup app to use passportjs
@@ -64,7 +64,7 @@ app.use('/authenticate', authenticate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });

@@ -8,11 +8,11 @@ block content
 
     div.row
       div.col-md-6.col-md-offset-3
-        if successMsg != undefined
+        if successMsg !== undefined
           h2.text-success= successMsg
         else
           form(action=signupUrl, method='POST')
-            if signupMsg != undefined && signupMsg.length > 0
+            if signupMsg !== undefined && signupMsg.length > 0
               div.panel.panel-danger
                 div.panel-body
                   div.text-danger= signupMsg

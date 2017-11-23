@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const argv = require('yargs').argv;
 const plugins = require('gulp-load-plugins')({lazy: true});
 
-const BUILD_PATH = './public/build/';
+const BUILD_PATH = './client/public/build/';
 
 gulp.task('test', () => {
     console.log('hello i am a test gulp task');
@@ -19,7 +19,7 @@ gulp.task('add-view', () => {
         return;
     }
 
-    let destFolder = './ng-client/view-' + viewName + '/';
+    let destFolder = './client/ng-client/view-' + viewName + '/';
     plugins.file('View'+viewName[0].toUpperCase()+viewName.substr(1)+'Ctrl.js',
         "angular.module('basicMEAN')\n.controller('"+
         'View'+viewName[0].toUpperCase()+viewName.substr(1)+'Ctrl' +"', function () {\n});",
@@ -33,34 +33,35 @@ gulp.task('add-view', () => {
 gulp.task('js-concat-minify', () => {
     // EXAMPLE: (TODO: switch to using the concat file in layout.pug)
     // concat all angular js files, while controlling the order of files
-    let js = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'])
+    let js = gulp.src(['./client/ng-client/**/*.js', './client/ng-client-secure/**/*.js'])
         .pipe(plugins.concat('ng-client.js'));
 
     let uglify = plugins.uglifyEs.default;
     return js
-        .pipe(gulp.dest('./public/build/js/'))
+        .pipe(gulp.dest('./client/public/build/js/'))
         .pipe(uglify())
-        .pipe(gulp.dest('./public/build/min-js/'));
+        .pipe(gulp.dest('./client/public/build/min-js/'));
 });
 
 gulp.task('prep-dist', ['build-ng-client'], () => {
     const DIST_BASE = './dist';
     // copy clientside files
-    gulp.src(['./ng-client/**/*.pug', './ng-client-secure/**/*.pug', './public/**/*'], {base: './'})
+    gulp.src(['./client/ng-client/**/*.pug', './client/ng-client-secure/**/*.pug', './client/public/**/*'], {base: './'})
         .pipe(gulp.dest(DIST_BASE));
     // copy serverside files
-    return gulp.src(['./bin/**/*',
-        './config/**/*',
-        './models/**/*',
-        './routes/**/*',
-        './views/**/*',
+    return gulp.src(['./server/bin/**/*',
+        './server/config/**/*',
+        './server/models/**/*',
+        './server/routes/**/*',
+        './server/views/**/*',
+        './server/*.js',
         './*.js',
         './*.json'], {base: './'})
         .pipe(gulp.dest(DIST_BASE));
 });
 
 gulp.task('build-ng-client', () => {
-    let angularfilesGlob = ['./ng-client/**/*.js', './ng-client-secure/**/*.js'];
+    let angularfilesGlob = ['./client/ng-client/**/*.js', './client/ng-client-secure/**/*.js'];
     let angularJsFiles = gulp.src(angularfilesGlob);
     return angularJsFiles.pipe(plugins.concat('ng-client.js'))
         .pipe(plugins.uglifyEs.default())
@@ -69,7 +70,7 @@ gulp.task('build-ng-client', () => {
 });
 
 gulp.task('watch-angular', ['build-ng-client'], () => {
-    let angularfilesGlob = ['./ng-client/**/*.js', './ng-client-secure/**/*.js'];
+    let angularfilesGlob = ['./client/ng-client/**/*.js', './client/ng-client-secure/**/*.js'];
     return plugins.watch(angularfilesGlob, () => {
         let angularJsFiles = gulp.src(angularfilesGlob);
         return angularJsFiles.pipe(plugins.concat('ng-client.js'))
@@ -80,13 +81,13 @@ gulp.task('watch-angular', ['build-ng-client'], () => {
 });
 
 gulp.task('inject-test', () => {
-    let angularJsFiles = gulp.src(['./ng-client/**/*.js', './ng-client-secure/**/*.js'], {read: true})
+    let angularJsFiles = gulp.src(['./client/ng-client/**/*.js', './client/ng-client-secure/**/*.js'], {read: true})
         .pipe(plugins.concat('ng-client.js'))
         .pipe(plugins.uglifyEs.default())
         .pipe(plugins.rename('ng-client.min.js'))
         .pipe(gulp.dest(BUILD_PATH));
-    let target = gulp.src('./views/layout.pug');
+    let target = gulp.src('./server/views/layout.pug');
     return target
-        .pipe(plugins.inject(angularJsFiles, {ignorePath:['public']}))
-        .pipe(gulp.dest('./views/'));
+        .pipe(plugins.inject(angularJsFiles, {ignorePath:['client', 'public']}))
+        .pipe(gulp.dest('./server/views/'));
 });

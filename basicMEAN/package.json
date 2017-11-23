@@ -6,8 +6,8 @@
     "serve": "",
     "debug": "node ./bin/www",
     "prepare-dist": "gulp prep-dist",
-    "start-nogulp": "nodemon -e jade,html,js ./bin/www",
-    "start": "gulp watch-angular | nodemon -e jade,html,js ./bin/www"
+    "start-nogulp": "nodemon -e jade,html,js ./server/bin/www",
+    "start": "gulp watch-angular | nodemon -e jade,html,js ./server/bin/www"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
