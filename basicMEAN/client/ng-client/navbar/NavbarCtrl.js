@@ -46,6 +46,7 @@ angular.module('basicMEAN')
         $http.post(SIGNUP_URL, signupParams)
         .then(function success() {
             $window.location.href = SIGNUP_SUCCESS_URL;
+            $window.location.reload();
         }, function failure() {
             setSignupErrorMsg('Signup failed. Try again later.', true);
         });
