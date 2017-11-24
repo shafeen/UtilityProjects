@@ -1,6 +1,6 @@
 angular.module('basicMEAN')
 .controller('NavbarCtrl', ['$scope', '$http', '$location', '$window', '$timeout', function ($scope, $http, $location, $window, $timeout) {
-    var navbar = this;
+    const navbar = this;
 
     navbar.$location = $location;
 
@@ -14,7 +14,7 @@ angular.module('basicMEAN')
     const LOGIN_URL = '/authenticate/login';
     const LOGIN_SUCCESS_URL = '/profile';
     navbar.login = function() {
-        var loginParams = {
+        let loginParams = {
             email: navbar.loginEmail,
             password: navbar.loginPass
         };
@@ -33,12 +33,12 @@ angular.module('basicMEAN')
     const SIGNUP_URL = '/authenticate/signup';
     const SIGNUP_SUCCESS_URL = '/profile';
     navbar.signup = function () {
-        if (verifySignupParams() == false) {
+        if (verifySignupParams() === false) {
             console.log('there were errors in the signup params!');
             return;
         }
 
-        var signupParams = {
+        let signupParams = {
             email: navbar.signupEmail,
             password: navbar.signupPass
         };
@@ -56,8 +56,8 @@ angular.module('basicMEAN')
             return false;
         }
 
-        var passwordsDontMatch = navbar.signupPass != navbar.signupPassConfirm;
-        var passwordValid = passwordsDontMatch ? false : isValidPassword(navbar.signupPass);
+        let passwordsDontMatch = navbar.signupPass != navbar.signupPassConfirm;
+        let passwordValid = passwordsDontMatch ? false : isValidPassword(navbar.signupPass);
         if (passwordsDontMatch) {
             passwordErrorHandler('Your passwords must match.');
             return false;
@@ -70,17 +70,14 @@ angular.module('basicMEAN')
     }
 
     function isValidEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
     function isValidPassword(password) {
         const MIN_LENGTH = 8;
         // TODO: add a few more password rules (min length, alphanumeric requirement, etc)
-        if (password.length < MIN_LENGTH) {
-            return false;
-        }
-        return true;
+        return password.length >= MIN_LENGTH;
     }
 
     function invalidEmailHandler(message) {

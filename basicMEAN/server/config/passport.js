@@ -1,6 +1,8 @@
-var LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
-var User = require('../models/user.model');
+const User = require('../models/user.model');
+
+// TODO: (shafeen) set it up so that we use an User repository instead of mongoose directly
 
 module.exports = function (passport) {
 
@@ -36,7 +38,7 @@ module.exports = function (passport) {
                     if (user) {
                         return done(null, false, req.flash('signupMsg', 'Email already taken!'));
                     } else {
-                        var newUser = new User();
+                        let newUser = new User();
                         newUser.local.email = email;
                         newUser.local.password = newUser.generateHash(password);
                         newUser.save(function (err) {
