@@ -45,6 +45,9 @@ module.exports = function (passport) {
         }
     });
 
+    // TODO: (shafeen) set up api routes controllers in the library
+    router.use('/api', require('./api')(settings));
+
     // route middleware to make sure a user is logged in
     function isLoggedIn(req, res, next) {
         // if user is authenticated in the session, carry on
@@ -55,6 +58,5 @@ module.exports = function (passport) {
         res.redirect('/');
     }
 
-    // TODO: (shafeen) set up public and protected api routes & controllers
     return router;
 };
