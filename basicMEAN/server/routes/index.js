@@ -8,7 +8,10 @@ module.exports = function (passport) {
 
     router.get('/', function (req, res, next) {
         if (req.isAuthenticated()) {
-            res.redirect('/profile');
+            res.render('index', {
+                user: req.user,
+                logoutUrl: AUTHENTICATE_BASE_URL + '/logout'
+            });
         } else {
             res.render('index');
         }
@@ -34,13 +37,6 @@ module.exports = function (passport) {
             title: 'Log in',
             loginUrl: AUTHENTICATE_BASE_URL + '/login',
             loginMsg: req.flash('loginMsg')
-        });
-    });
-
-    router.get('/profile', isLoggedIn, function (req, res) {
-        res.render('profile', {
-            user: req.user,
-            logoutUrl: AUTHENTICATE_BASE_URL + '/logout'
         });
     });
 

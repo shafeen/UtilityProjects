@@ -43,6 +43,8 @@ div(ng-controller='NavbarCtrl as navbar')
                   i.fa.fa-lock
                   |  Sign Up
           else
+            li(class="{{navbar.$location.path() == '/profile'? 'active' : ''}}")
+              a(href='#/profile') Profile
             li
               .navbar-form
                 a.btn.btn-warning.btn-outline(href='authenticate/logout')

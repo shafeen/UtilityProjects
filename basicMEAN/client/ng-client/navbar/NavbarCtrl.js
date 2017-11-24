@@ -12,7 +12,7 @@ angular.module('basicMEAN')
     });
 
     const LOGIN_URL = '/authenticate/login';
-    const LOGIN_SUCCESS_URL = '/profile';
+    const LOGIN_SUCCESS_URL = '/#/profile';
     navbar.login = function() {
         let loginParams = {
             email: navbar.loginEmail,
@@ -21,6 +21,7 @@ angular.module('basicMEAN')
         $http.post(LOGIN_URL, loginParams)
         .then(function success() {
             $window.location.href = LOGIN_SUCCESS_URL;
+            $window.location.reload();
         }, function failure() {
             navbar.showLoginErrorMsg = true;
             navbar.loginErrorMsg = 'Login failed';
@@ -31,7 +32,7 @@ angular.module('basicMEAN')
     };
 
     const SIGNUP_URL = '/authenticate/signup';
-    const SIGNUP_SUCCESS_URL = '/profile';
+    const SIGNUP_SUCCESS_URL = '/#/profile';
     navbar.signup = function () {
         if (verifySignupParams() === false) {
             console.log('there were errors in the signup params!');
