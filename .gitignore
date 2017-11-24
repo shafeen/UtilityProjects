@@ -1,6 +1,6 @@
 .idea/
 out/
 node_modules/
-basicMEAN/public/build/
+basicMEAN/client/public/build/
 dist/
 *.iml

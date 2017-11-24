@@ -11,15 +11,12 @@ const passport = require('passport');
 const flash = require('express-flash');
 
 // connect to the database -- NOTE: uncomment when you're ready to add in persistence
-// var databaseConfig = require('./config/database.js');
+// const databaseConfig = require('./config/database.js');
 // databaseConfig(mongoose);
 
 // configure passportjs for login and signup
 const passportConfig = require('./config/passport.js');
 passportConfig(passport);
-
-const index = require('./routes/index');
-const authenticate = require('./routes/authenticate')(passport);
 
 const app = express();
 
@@ -57,10 +54,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// routes
+// entry point for application routes
+const index = require('./routes/index')(passport);
 app.use('/', index);
-app.use('/partials', require('./routes/partials'));
-app.use('/authenticate', authenticate);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
