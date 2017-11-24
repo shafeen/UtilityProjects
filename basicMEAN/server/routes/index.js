@@ -22,22 +22,27 @@ module.exports = function (passport) {
     router.use(AUTHENTICATE_BASE_URL, require('./authenticate')(passport));
 
     router.get('/signup', function (req, res) {
-        res.render('signup', {
-            title: 'Create an account',
-            signupUrl: AUTHENTICATE_BASE_URL + '/signup',
-            signupMsg: req.flash('signupMsg')
-        });
+        if (req.isAuthenticated()) {
+            res.redirect('/#/profile');
+        } else {
+            res.render('signup', {
+                title: 'Create an account',
+                signupUrl: AUTHENTICATE_BASE_URL + '/signup',
+                signupMsg: req.flash('signupMsg')
+            });
+        }
     });
 
     router.get('/login', function (req, res) {
         if (req.isAuthenticated()) {
-            res.redirect('/profile');
+            res.redirect('/#/profile');
+        } else {
+            res.render('login', {
+                title: 'Log in',
+                loginUrl: AUTHENTICATE_BASE_URL + '/login',
+                loginMsg: req.flash('loginMsg')
+            });
         }
-        res.render('login', {
-            title: 'Log in',
-            loginUrl: AUTHENTICATE_BASE_URL + '/login',
-            loginMsg: req.flash('loginMsg')
-        });
     });
 
     // route middleware to make sure a user is logged in
