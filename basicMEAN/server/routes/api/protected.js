@@ -11,5 +11,7 @@ module.exports = function (settings) {
         })
     });
 
+    router.use('/user', require('./protected/user')(settings));
+
     return router;
 };
