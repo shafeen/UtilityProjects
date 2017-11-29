@@ -14,10 +14,9 @@ html(ng-app='basicMEAN')
     link(rel="stylesheet", type="text/css", href="/stylesheets/style.css")
 
   body
-    div(ng-include="'/partials/navbar/navbar'")
-
+    navbar
+        
     block content
-
 
     //- inject:js
     script(src="/build/ng-client.min.js")

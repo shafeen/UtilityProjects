@@ -1,4 +1,4 @@
-div(ng-controller='NavbarCtrl as navbar')
+div
   nav.navbar.navbar-inverse.navbar-fixed-top
     .container-fluid
       // Brand and toggle get grouped for better mobile display
@@ -13,23 +13,23 @@ div(ng-controller='NavbarCtrl as navbar')
       // Collect the nav links, forms, and other content for toggling
       #bs-example-navbar-collapse-1.collapse.navbar-collapse
         ul.nav.navbar-nav
-          li(class="{{(navbar.$location.path() == '/view1' || navbar.$location.path() == '/')? 'active' : ''}}")
-            a(href='#/view1')
-              | View 1
-              span.sr-only (current)
-
-          li(class="{{navbar.$location.path() == '/view2'? 'active' : ''}}")
-            a(href='#/view2') View 2
+          li(ng-repeat="view in navbar.data.left.public"
+              class="{{(navbar.$location.path()==view.path.primary || navbar.$location.path() == view.path.alt)? 'active' : ''}}")
+            a(ng-href='#{{view.path.primary}}') {{view.displayName}}
 
           if user
-            li(class="{{navbar.$location.path() == '/view-protected'? 'active' : ''}}")
-              a(href='#/view-protected') View-Protected
+            li(ng-repeat="view in navbar.data.left.protected"
+                class="{{(navbar.$location.path()==view.path.primary || navbar.$location.path() == view.path.alt)? 'active' : ''}}")
+              a(ng-href='#{{view.path.primary}}') {{view.displayName}}
 
           li(ng-show='navbar.loading')
             a(href='')
               i.fa.fa-refresh.fa-lg.text-info(class="{{navbar.loading? 'fa-spin' : ''}}")
 
         ul.nav.navbar-nav.navbar-right
+          li(ng-repeat="view in navbar.data.right.public"
+              class="{{(navbar.$location.path()==view.path.primary || navbar.$location.path() == view.path.alt)? 'active' : ''}}")
+            a(ng-href='#{{view.path.primary}}') {{view.displayName}}
           if !user
             li.dropdown
               a.dropdown-toggle(href='/login', data-toggle='dropdown')
@@ -43,8 +43,9 @@ div(ng-controller='NavbarCtrl as navbar')
                   i.fa.fa-lock
                   |  Sign Up
           else
-            li(class="{{navbar.$location.path() == '/profile'? 'active' : ''}}")
-              a(href='#/profile') Profile
+            li(ng-repeat="view in navbar.data.right.protected"
+                class="{{(navbar.$location.path()==view.path.primary || navbar.$location.path() == view.path.alt)? 'active' : ''}}")
+              a(ng-href='#{{view.path.primary}}') {{view.displayName}}
             li
               .navbar-form
                 a.btn.btn-warning.btn-outline(href='authenticate/logout')

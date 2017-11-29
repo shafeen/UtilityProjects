@@ -1,6 +1,44 @@
 angular.module('basicMEAN')
+.component('navbar', {
+    templateUrl: '/partials/navbar/navbar',
+    controller: "NavbarCtrl as navbar",
+    bindings: {
+    }
+})
 .controller('NavbarCtrl', ['$scope', '$http', '$location', '$window', '$timeout', function ($scope, $http, $location, $window, $timeout) {
     const navbar = this;
+
+    navbar.data = {
+        left : {
+            public: [
+                {
+                    path: { primary: '/view1', alt: '/'},
+                    displayName: 'View 1'
+                },
+                {
+                    path: { primary: '/view2'},
+                    displayName: 'View 2'
+                }
+
+            ],
+            protected: [
+                {
+                    path: { primary: '/view-protected'},
+                    displayName: 'View-Protected',
+                }
+            ]
+        }
+        ,
+        right : {
+            public : [],
+            protected: [
+                {
+                    path: { primary: '/profile'},
+                    displayName: 'Profile',
+                }
+            ]
+        }
+    };
 
     navbar.$location = $location;
 
@@ -18,17 +56,20 @@ angular.module('basicMEAN')
             email: navbar.loginEmail,
             password: navbar.loginPass
         };
+        navbar.loading = true;
         $http.post(LOGIN_URL, loginParams)
-        .then(function success() {
-            $window.location.href = LOGIN_SUCCESS_URL;
-            $window.location.reload();
-        }, function failure() {
-            navbar.showLoginErrorMsg = true;
-            navbar.loginErrorMsg = 'Login failed';
-            $timeout(function () {
-                navbar.showLoginErrorMsg = false;
-            }, 4000)
-        });
+            .then(function success() {
+                navbar.loading = false;
+                $window.location.href = LOGIN_SUCCESS_URL;
+                $window.location.reload();
+            }, function failure() {
+                navbar.loading = false;
+                navbar.showLoginErrorMsg = true;
+                navbar.loginErrorMsg = 'Login failed';
+                $timeout(function () {
+                    navbar.showLoginErrorMsg = false;
+                }, 4000);
+            });
     };
 
     const SIGNUP_URL = '/authenticate/signup';
@@ -44,12 +85,12 @@ angular.module('basicMEAN')
             password: navbar.signupPass
         };
         $http.post(SIGNUP_URL, signupParams)
-        .then(function success() {
-            $window.location.href = SIGNUP_SUCCESS_URL;
-            $window.location.reload();
-        }, function failure() {
-            setSignupErrorMsg('Signup failed. Try again later.', true);
-        });
+            .then(function success() {
+                $window.location.href = SIGNUP_SUCCESS_URL;
+                $window.location.reload();
+            }, function failure() {
+                setSignupErrorMsg('Signup failed. Try again later.', true);
+            });
     };
 
     function verifySignupParams() {
