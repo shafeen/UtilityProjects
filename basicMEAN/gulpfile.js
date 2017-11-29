@@ -72,6 +72,7 @@ gulp.task('build-ng-client', () => {
 gulp.task('watch-angular', ['build-ng-client'], () => {
     let angularfilesGlob = ['./client/ng-client/**/*.js', './client/ng-client-secure/**/*.js'];
     return plugins.watch(angularfilesGlob, () => {
+        console.log('rebuilding: %s', new Date());
         let angularJsFiles = gulp.src(angularfilesGlob);
         return angularJsFiles.pipe(plugins.concat('ng-client.js'))
             .pipe(plugins.uglifyEs.default())
